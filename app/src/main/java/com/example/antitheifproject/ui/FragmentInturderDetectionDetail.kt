@@ -110,7 +110,7 @@ class FragmentInturderDetectionDetail :
             isGridLayout = true
             dbHelper?.saveData(context ?: return, IS_GRID, true)
             _binding?.run {
-                topLay.setLayoutBtn.loadImage(context ?: return, R.drawable.icon_grid)
+                topLay.setLayoutBtn.setImage(R.drawable.icon_grid)
                 gridLayout.topGrid.visibility = View.VISIBLE
                 linearlayout.topLinear.visibility = View.GONE
                 gridLayout.inturderAlertSwitch.setOnCheckedChangeListener { compoundButton, bool ->

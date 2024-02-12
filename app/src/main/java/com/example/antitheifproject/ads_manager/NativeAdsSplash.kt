@@ -85,55 +85,6 @@ object NativeAdsSplash {
                         Log.d(NativeAdsSplashLog, "   loaded native Ad")
                         nativeListener.nativeAdLoaded(currentNativeAd)
                     }
-
-                    val videoOptions = VideoOptions.Builder().setStartMuted(true).build()
-
-                    val adOptions = NativeAdOptions.Builder().setVideoOptions(videoOptions)
-                        .setAdChoicesPlacement(NativeAdOptions.ADCHOICES_TOP_RIGHT).build()
-                    builder.withNativeAdOptions(adOptions)
-
-                    val adLoader = builder.withAdListener(object : AdListener() {
-                        override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                            FullScreenAds.logEventForAds(NativeAdsSplashLog, "failed", nativeAdId)
-
-                            if (isDebug()) {
-                                Snackbar.make(
-                                    activity.window.decorView.rootView,
-                                    "AD Error Native: ${loadAdError.message}",
-                                    Snackbar.LENGTH_LONG
-                                ).show()
-                            }
-                            Log.d(NativeAdsSplashLog, "failed native Ad  ${loadAdError.message}")
-                            isNativeLoading = false
-                            nativeListener.nativeAdFailed(loadAdError)
-
-                        }
-
-                        override fun onAdImpression() {
-                            currentNativeAd = null
-                            isNativeLoading = false
-                            Log.d(NativeAdsSplashLog, "onAdImpression native Ad")
-                            super.onAdImpression()
-                        }
-
-                        override fun onAdClicked() {
-                            Log.d(NativeAdsSplashLog, "onAdClicked native Ad")
-                            FullScreenAds.logEventForAds(NativeAdsSplashLog, "clicked", nativeAdId)
-                            isNativeLoading = false
-                            nativeListener.nativeAdClicked()
-                            super.onAdClicked()
-                        }
-
-                        override fun onAdLoaded() {
-                            isNativeLoading = false
-                            FullScreenAds.logEventForAds(NativeAdsSplashLog, "loaded", nativeAdId)
-
-                            Log.d(NativeAdsSplashLog, "onAdLoaded native Ad")
-                            super.onAdLoaded()
-                        }
-                    }).build()
-
-                    adLoader.loadAd(AdRequest.Builder().build())
                     return
                 }
                 isNativeLoading = true

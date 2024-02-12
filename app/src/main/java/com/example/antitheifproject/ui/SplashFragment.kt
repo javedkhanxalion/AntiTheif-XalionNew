@@ -132,7 +132,6 @@ class SplashFragment :
         inter_frequency_count = 0
         initRemoteIds()
         initRemoteConfig()
-        observeSplashLiveData()
 //        googleMobileAdsConsentManager = GoogleMobileAdsConsentManager.getInstance(requireContext())
 //        googleMobileAdsConsentManager.gatherConsent(activity?:return) { consentError ->
 //            if (consentError != null) {
@@ -172,9 +171,9 @@ class SplashFragment :
 
     private fun observeSplashLiveData() {
         try {
-            lifecycleScope.launchWhenResumed {
+            lifecycleScope.launchWhenStarted {
                 try {
-                    delay(4000)
+                    delay(1000)
                     findNavController().navigate(R.id.myLoadingFragment)
                     isBackShow=false
                     firebaseAnalytics("splash_fragment_load", "splash_fragment_load -->  Click")
@@ -466,7 +465,7 @@ class SplashFragment :
 
                     })
 
-
+                observeSplashLiveData()
             }
 
         } catch (e: Exception) {

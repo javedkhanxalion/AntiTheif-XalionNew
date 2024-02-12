@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/premium" />
 
-    <ImageView
+    <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/set_layout_btn"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"

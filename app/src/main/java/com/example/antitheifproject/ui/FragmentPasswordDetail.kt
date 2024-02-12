@@ -9,12 +9,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.example.antitheifproject.Admin
 import com.antitheftalarm.dont.touch.phone.finder.R
+import com.antitheftalarm.dont.touch.phone.finder.databinding.FragmentDetailModuleBinding
+import com.example.antitheifproject.Admin
 import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.interfaces.NativeListener
 import com.example.antitheifproject.ads_manager.showTwoInterAd
-import com.antitheftalarm.dont.touch.phone.finder.databinding.FragmentDetailModuleBinding
 import com.example.antitheifproject.helper_class.Constants.Intruder_Alarm
 import com.example.antitheifproject.helper_class.Constants.isServiceRunning
 import com.example.antitheifproject.helper_class.DbHelper
@@ -85,12 +85,12 @@ class FragmentPasswordDetail :
         _binding?.run {
 
             topLay.navMenu.clickWithThrottle {
-               isBackShow=model?.backRemote?:return@clickWithThrottle
+                isBackShow = model?.backRemote ?: return@clickWithThrottle
                 findNavController().navigateUp()
             }
 
             gridLayout.soundIcon.clickWithThrottle {
-                isBackShow=true
+                isBackShow = true
                 findNavController().navigate(
                     R.id.FragmentSoundSelection,
                     bundleOf(ANTI_TITLE to model)
@@ -98,7 +98,7 @@ class FragmentPasswordDetail :
             }
 
             linearlayout.soundIcon.clickWithThrottle {
-                isBackShow=true
+                isBackShow = true
                 findNavController().navigate(
                     R.id.FragmentSoundSelection,
                     bundleOf(ANTI_TITLE to model)
@@ -112,7 +112,7 @@ class FragmentPasswordDetail :
         }
 
         setupBackPressedCallback {
-           isBackShow=model?.backRemote?:return@setupBackPressedCallback
+            isBackShow = model?.backRemote ?: return@setupBackPressedCallback
             findNavController().navigateUp()
 
         }
@@ -124,7 +124,7 @@ class FragmentPasswordDetail :
             if (isGrid) {
                 isGridLayout = true
                 dbHelper?.saveData(context ?: return, IS_GRID, true)
-                topLay.setLayoutBtn.loadImage(context ?: return, R.drawable.icon_grid)
+                topLay.setLayoutBtn.setImage(R.drawable.icon_grid)
                 gridLayout.topImage.loadImage(context ?: return, model?.subMenuIcon ?: return)
                 gridLayout.soundImage.loadImage(context ?: return, R.drawable.icon_sound)
                 gridLayout.topGrid.visibility = View.VISIBLE
@@ -324,36 +324,43 @@ class FragmentPasswordDetail :
             id_native_password_screen,
             object : NativeListener {
                 override fun nativeAdLoaded(currentNativeAd: NativeAd?) {
-                    if (!isAdded && !isVisible && isDetached) {
+                    if (isAdded && isVisible && !isDetached) {
                         _binding?.gridLayout?.nativeExitAd?.visibility = View.GONE
                         _binding?.gridLayout?.adView?.visibility = View.GONE
-                        return
-                    }
-                    _binding?.gridLayout?.nativeExitAd?.visibility = View.VISIBLE
-                    _binding?.gridLayout?.adView?.visibility = View.GONE
-                    if (isAdded && isVisible && !isDetached) {
-                        val adView = if (val_ad_native_password_screen_is_H) {
-                            layoutInflater.inflate(R.layout.ad_unified_hight, null) as NativeAdView
-                        } else {
-                            layoutInflater.inflate(R.layout.ad_unified_low, null) as NativeAdView
+                        if (isAdded && isVisible && !isDetached) {
+                            val adView = if (val_ad_native_password_screen_is_H) {
+                                layoutInflater.inflate(
+                                    R.layout.ad_unified_hight,
+                                    null
+                                ) as NativeAdView
+                            } else {
+                                layoutInflater.inflate(
+                                    R.layout.ad_unified_low,
+                                    null
+                                ) as NativeAdView
+                            }
+                            adsManager?.nativeAds()
+                                ?.nativeViewPolicy(currentNativeAd ?: return, adView)
+                            _binding?.gridLayout?.nativeExitAd?.removeAllViews()
+                            _binding?.gridLayout?.nativeExitAd?.addView(adView)
                         }
-                        adsManager?.nativeAds()?.nativeViewPolicy(currentNativeAd ?: return, adView)
-                        _binding?.gridLayout?.nativeExitAd?.removeAllViews()
-                        _binding?.gridLayout?.nativeExitAd?.addView(adView)
                     }
-
                     super.nativeAdLoaded(currentNativeAd)
                 }
 
                 override fun nativeAdFailed(loadAdError: LoadAdError) {
-                    _binding?.gridLayout?.nativeExitAd?.visibility = View.GONE
-                    _binding?.gridLayout?.adView?.visibility = View.GONE
+                    if (isAdded && isVisible && !isDetached) {
+                        _binding?.gridLayout?.nativeExitAd?.visibility = View.GONE
+                        _binding?.gridLayout?.adView?.visibility = View.GONE
+                    }
                     super.nativeAdFailed(loadAdError)
                 }
 
                 override fun nativeAdValidate(string: String) {
-                    _binding?.gridLayout?.nativeExitAd?.visibility = View.GONE
-                    _binding?.gridLayout?.adView?.visibility = View.GONE
+                    if (isAdded && isVisible && !isDetached) {
+                        _binding?.gridLayout?.nativeExitAd?.visibility = View.GONE
+                        _binding?.gridLayout?.adView?.visibility = View.GONE
+                    }
                     super.nativeAdValidate(string)
                 }
 
@@ -367,14 +374,11 @@ class FragmentPasswordDetail :
             id_native_password_screen,
             object : NativeListener {
                 override fun nativeAdLoaded(currentNativeAd: NativeAd?) {
-                    if (!isAdded && !isVisible && isDetached) {
+                    if (isAdded && isVisible && !isDetached) {
                         _binding?.linearlayout?.nativeExitAd?.visibility = View.GONE
                         _binding?.linearlayout?.adView?.visibility = View.GONE
-                        return
-                    }
-                    _binding?.linearlayout?.nativeExitAd?.visibility = View.VISIBLE
-                    _binding?.linearlayout?.adView?.visibility = View.GONE
-                    if (isAdded && isVisible && !isDetached) {
+                        _binding?.linearlayout?.nativeExitAd?.visibility = View.VISIBLE
+                        _binding?.linearlayout?.adView?.visibility = View.GONE
                         val adView = if (val_ad_native_password_screen_is_H) {
                             layoutInflater.inflate(R.layout.ad_unified_hight, null) as NativeAdView
                         } else {
@@ -388,14 +392,18 @@ class FragmentPasswordDetail :
                 }
 
                 override fun nativeAdFailed(loadAdError: LoadAdError) {
-                    _binding?.linearlayout?.nativeExitAd?.visibility = View.GONE
-                    _binding?.linearlayout?.adView?.visibility = View.GONE
+                    if (isAdded && isVisible && !isDetached) {
+                        _binding?.linearlayout?.nativeExitAd?.visibility = View.GONE
+                        _binding?.linearlayout?.adView?.visibility = View.GONE
+                    }
                     super.nativeAdFailed(loadAdError)
                 }
 
                 override fun nativeAdValidate(string: String) {
-                    _binding?.linearlayout?.nativeExitAd?.visibility = View.GONE
-                    _binding?.linearlayout?.adView?.visibility = View.GONE
+                    if (isAdded && isVisible && !isDetached) {
+                        _binding?.linearlayout?.nativeExitAd?.visibility = View.GONE
+                        _binding?.linearlayout?.adView?.visibility = View.GONE
+                    }
                     super.nativeAdValidate(string)
                 }
 
