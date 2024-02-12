@@ -555,7 +555,7 @@ fun Fragment.setLocaleMain(languageCode: String) {
     resources.updateConfiguration(configuration, resources.displayMetrics)
 }
 
-private var ratingDialog: AlertDialog? = null
+var ratingDialog: AlertDialog? = null
 fun Fragment.showRatingDialog(
     onPositiveButtonClick: (Float, AlertDialog) -> Unit,
 ) {

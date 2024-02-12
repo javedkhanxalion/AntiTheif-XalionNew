@@ -75,12 +75,13 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:visibility="visible"
+            android:backgroundTint="#FF005C"
             app:layout_constraintBottom_toBottomOf="@id/notification_view"
             app:layout_constraintEnd_toStartOf="@+id/notification_text"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/notification_view"
             app:layout_constraintTop_toTopOf="@id/notification_view"
-            app:srcCompat="@drawable/ic_notification" />
+            android:background="@drawable/ic_notification" />
 
         <TextView
             android:id="@+id/notification_text"

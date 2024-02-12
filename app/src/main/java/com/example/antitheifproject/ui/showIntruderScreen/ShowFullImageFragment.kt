@@ -1,6 +1,7 @@
 package com.example.antitheifproject.ui.showIntruderScreen
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -8,6 +9,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
 import com.antitheftalarm.dont.touch.phone.finder.R
@@ -23,6 +27,7 @@ import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.id_native_show_image_screen
 import com.example.antitheifproject.utilities.isBackShow
+import com.example.antitheifproject.utilities.ratingDialog
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.showToast
 import com.example.antitheifproject.utilities.val_ad_instertital_show_image_screen_is_B
@@ -33,13 +38,14 @@ import com.example.antitheifproject.utilities.val_inter_main_normal
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
+import java.io.File
 
 class ShowFullImageFragment :
     BaseFragment<FragmentShowFullImageScreenBinding>(FragmentShowFullImageScreenBinding::inflate) {
 
     var models: IntruderModels? = null
     private var adsManager: AdsManager? = null
-
+    var ratingDialogDelete: AlertDialog? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -68,21 +74,25 @@ class ShowFullImageFragment :
         }
         Glide.with(this).load(Uri.fromFile(models?.file)).into(binding?.intruderimage!!)
         binding?.deleteBtn?.setOnClickListener {
-            val dialog = Dialog(context ?: return@setOnClickListener)
-            val inflate1 = layoutInflater.inflate(R.layout.delete_dialog, null as ViewGroup?)
-            dialog.setContentView(inflate1)
-            val window = dialog.window
-            window?.attributes = window?.attributes
-            dialog.window?.setLayout(-2, -2)
-            dialog.window?.setBackgroundDrawable(ColorDrawable(0))
-            dialog.setCanceledOnTouchOutside(true)
-            dialog.show()
-            (inflate1.findViewById<View>(R.id.cancl_btn) as Button).setOnClickListener { dialog.dismiss() }
-            (inflate1.findViewById<View>(R.id.cnfrm_del_btn) as Button).setOnClickListener { view2 ->
-                dialogDismiss(
-                    dialog, view2
-                )
+            val dialogView = layoutInflater.inflate(R.layout.delete_dialog, null)
+            ratingDialogDelete = AlertDialog.Builder(requireContext()).create()
+            ratingDialogDelete?.setView(dialogView)
+            ratingDialogDelete?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            val cancel = dialogView.findViewById<View>(R.id.cancl_btn)
+            val yes = dialogView.findViewById<View>(R.id.cnfrm_del_btn)
+
+            yes.setOnClickListener {
+                ratingDialogDelete?.dismiss()
+                delPics()
             }
+            cancel.setOnClickListener {
+                ratingDialogDelete?.dismiss()
+            }
+
+            if (isVisible && isAdded && !isDetached) {
+                ratingDialogDelete?.show()
+            }
+
         }
 
         binding?.shareBtn?.setOnClickListener { shareImage() }
@@ -98,15 +108,10 @@ class ShowFullImageFragment :
         loadNative()
     }
 
-    private fun dialogDismiss(dialog: Dialog, view: View?) {
-        dialog.dismiss()
-        delPics()
-    }
-
     private fun shareImage() {
-
-        try {
-            if (models?.file?.exists() == true) {
+        models?.file?.shareFile(context?:return)
+//        try {
+//            if (models?.file?.exists() == true) {
                 val intent = Intent("android.intent.action.SEND")
                 intent.type = "image/*"
                 val uriForFile = FileProvider.getUriForFile(
@@ -119,10 +124,10 @@ class ShowFullImageFragment :
                 if (intent.resolveActivity(context?.packageManager ?: return) != null) {
                     startActivity(Intent.createChooser(intent, "Share via"))
                 }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
     }
 
     private fun delPics() {
@@ -174,5 +179,14 @@ class ShowFullImageFragment :
             })
     }
 
+    private fun File.shareFile(context: Context) {
+        // Create intent for sharing file
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(this))
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        // Launch the share intent
+        context.startActivity(Intent.createChooser(intent, "Share File"))
+    }
 
 }
