@@ -112,18 +112,18 @@ class ShowFullImageFragment :
         models?.file?.shareFile(context?:return)
 //        try {
 //            if (models?.file?.exists() == true) {
-                val intent = Intent("android.intent.action.SEND")
-                intent.type = "image/*"
-                val uriForFile = FileProvider.getUriForFile(
-                    context ?: return,
-                    context?.applicationContext?.packageName + ".fileprovider",
-                    models?.file ?: return
-                )
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                intent.putExtra("android.intent.extra.STREAM", uriForFile)
-                if (intent.resolveActivity(context?.packageManager ?: return) != null) {
-                    startActivity(Intent.createChooser(intent, "Share via"))
-                }
+//                val intent = Intent("android.intent.action.SEND")
+//                intent.type = "image/*"
+//                val uriForFile = FileProvider.getUriForFile(
+//                    context ?: return,
+//                    context?.applicationContext?.packageName + ".fileprovider",
+//                    models?.file ?: return
+//                )
+//                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//                intent.putExtra("android.intent.extra.STREAM", uriForFile)
+//                if (intent.resolveActivity(context?.packageManager ?: return) != null) {
+//                    startActivity(Intent.createChooser(intent, "Share via"))
+//                }
 //            }
 //        } catch (e: Exception) {
 //            e.printStackTrace()
