@@ -1,5 +1,6 @@
 package com.example.antitheifproject.ui.showIntruderScreen
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -36,6 +37,9 @@ class FragmentShowIntruder :
     private var allIntruderList: ArrayList<IntruderModels> = ArrayList()
     private var dir: File? = null
     private var adsManager: AdsManager? = null
+    companion object{
+         var uriPic: Uri? = null
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,8 +82,9 @@ class FragmentShowIntruder :
     }
 
     private fun setupRecyclerView() {
-        adapter = IntruderAdapter(allIntruderList, requireActivity()) { intruderModel ->
+        adapter = IntruderAdapter(allIntruderList, requireActivity()) { intruderModel ,uri_->
             isBackShow=true
+            uriPic=uri_
             findNavController().navigate(
                 R.id.ShowFullImageFragment,
                 bundleOf("obj" to intruderModel)

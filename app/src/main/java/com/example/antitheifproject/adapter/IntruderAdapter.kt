@@ -12,7 +12,7 @@ import com.example.antitheifproject.model.IntruderModels
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class IntruderAdapter(private val models: ArrayList<IntruderModels>?, val context: Activity, val onClick : ((IntruderModels)->Unit)) :
+class IntruderAdapter(private val models: ArrayList<IntruderModels>?, val context: Activity, val onClick : ((IntruderModels,Uri)->Unit)) :
     RecyclerView.Adapter<IntruderAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
@@ -34,7 +34,7 @@ class IntruderAdapter(private val models: ArrayList<IntruderModels>?, val contex
         viewHolder.binding.time.text = SimpleDateFormat("HH:mm:aa").format(date)
 
         viewHolder.binding.intuderMain.setOnClickListener {
-            onClick.invoke(intruderModels?:return@setOnClickListener)
+            onClick.invoke(intruderModels?:return@setOnClickListener,Uri.fromFile(intruderModels?.file))
         }
 
     }

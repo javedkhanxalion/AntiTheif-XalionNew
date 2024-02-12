@@ -21,6 +21,7 @@ import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.interfaces.NativeListener
 import com.example.antitheifproject.ads_manager.showTwoInterAd
 import com.example.antitheifproject.model.IntruderModels
+import com.example.antitheifproject.ui.showIntruderScreen.FragmentShowIntruder.Companion.uriPic
 import com.example.antitheifproject.utilities.BaseFragment
 import com.example.antitheifproject.utilities.firebaseAnalytics
 import com.example.antitheifproject.utilities.id_inter_main_medium
@@ -101,7 +102,6 @@ class ShowFullImageFragment :
             findNavController().navigateUp()
         }
         setupBackPressedCallback {
-
             isBackShow = val_ad_instertital_show_image_screen_is_B
             findNavController().navigateUp()
         }
@@ -109,25 +109,18 @@ class ShowFullImageFragment :
     }
 
     private fun shareImage() {
-        models?.file?.shareFile(context?:return)
-//        try {
-//            if (models?.file?.exists() == true) {
-//                val intent = Intent("android.intent.action.SEND")
-//                intent.type = "image/*"
-//                val uriForFile = FileProvider.getUriForFile(
-//                    context ?: return,
-//                    context?.applicationContext?.packageName + ".fileprovider",
-//                    models?.file ?: return
-//                )
-//                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//                intent.putExtra("android.intent.extra.STREAM", uriForFile)
-//                if (intent.resolveActivity(context?.packageManager ?: return) != null) {
-//                    startActivity(Intent.createChooser(intent, "Share via"))
-//                }
-//            }
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
+
+        try {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_STREAM,uriPic)
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            // Launch the share intent
+            startActivity(Intent.createChooser(intent, "Share Image"))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     private fun delPics() {
