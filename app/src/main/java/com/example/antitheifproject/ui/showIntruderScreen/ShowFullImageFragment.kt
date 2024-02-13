@@ -1,16 +1,10 @@
 package com.example.antitheifproject.ui.showIntruderScreen
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
@@ -21,14 +15,12 @@ import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.interfaces.NativeListener
 import com.example.antitheifproject.ads_manager.showTwoInterAd
 import com.example.antitheifproject.model.IntruderModels
-import com.example.antitheifproject.ui.showIntruderScreen.FragmentShowIntruder.Companion.uriPic
 import com.example.antitheifproject.utilities.BaseFragment
 import com.example.antitheifproject.utilities.firebaseAnalytics
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.id_native_show_image_screen
 import com.example.antitheifproject.utilities.isBackShow
-import com.example.antitheifproject.utilities.ratingDialog
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.showToast
 import com.example.antitheifproject.utilities.val_ad_instertital_show_image_screen_is_B
@@ -111,12 +103,20 @@ class ShowFullImageFragment :
     private fun shareImage() {
 
         try {
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_STREAM,uriPic)
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            // Launch the share intent
-            startActivity(Intent.createChooser(intent, "Share Image"))
+            if (models?.file?.exists() == true) {
+                val intent = Intent("android.intent.action.SEND")
+                intent.type = "image/*"
+                val uriForFile = FileProvider.getUriForFile(
+                    context ?: return,
+                    context?.packageName + ".fileprovider",
+                    models?.file ?: return
+                )
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                intent.putExtra("android.intent.extra.STREAM", uriForFile)
+                if (intent.resolveActivity(context?.packageManager ?: return) != null) {
+                    startActivity(Intent.createChooser(intent, "Share via"))
+                }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -124,9 +124,13 @@ class ShowFullImageFragment :
     }
 
     private fun delPics() {
-        if (models?.file?.exists() == true && models?.file?.delete() == true) {
-            showToast(getString(R.string.image_deleted))
-            findNavController().popBackStack()
+        try {
+            if (models?.file?.exists() == true && models?.file?.delete() == true) {
+                showToast(getString(R.string.image_deleted))
+                findNavController().popBackStack()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
