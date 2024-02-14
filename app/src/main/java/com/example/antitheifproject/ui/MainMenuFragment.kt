@@ -252,7 +252,6 @@ class MainMenuFragment :
             _binding?.navView?.customSwitch?.isChecked = it
         }
         checkNotificationPermission()
-
     }
 
 }

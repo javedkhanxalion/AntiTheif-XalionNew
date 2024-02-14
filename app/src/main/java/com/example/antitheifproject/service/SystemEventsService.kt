@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE
 import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -28,6 +29,7 @@ import android.os.Vibrator
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.RemoteViews
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.HandlerCompat
@@ -220,17 +222,8 @@ class SystemEventsService : Service(), SensorEventListener {
 
     override fun onCreate() {
         super.onCreate()
-        try {
-            startForeground()
-            mgr = CamManager(this)
-            LocalBroadcastManager.getInstance(this)
-                .registerReceiver(cameraReceiver, IntentFilter("camera_intent"))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+
     }
-
-
 
     private fun registerIntent() {
         try {
@@ -267,7 +260,7 @@ class SystemEventsService : Service(), SensorEventListener {
             remoteViews.setTextColor(R.id.text_view_collapsed_2, Color.parseColor("#FFFFFF"))
             remoteViews.setTextColor(R.id.text_view_collapsed_1, Color.parseColor("#FFFFFF"))
         }
-        if (Build.VERSION.SDK_INT >= 30) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             startForeground(
                 5,
                 NotificationCompat.Builder(
@@ -311,7 +304,14 @@ class SystemEventsService : Service(), SensorEventListener {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         try {
             // Register battery events
-
+            try {
+                mgr = CamManager(this)
+                LocalBroadcastManager.getInstance(this)
+                    .registerReceiver(cameraReceiver, IntentFilter("camera_intent"))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            startForeground()
             registerIntent()
             isAvailable = true
             dbHelper = DbHelper(this)
