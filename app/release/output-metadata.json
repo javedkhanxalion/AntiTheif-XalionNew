@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 8,
-      "versionName": "1.8",
-      "outputFile": "AntiThief_v1.8(8)-release.apk"
+      "versionCode": 9,
+      "versionName": "1.9",
+      "outputFile": "AntiThief_v1.9(9)-release.apk"
     }
   ],
   "elementType": "File"

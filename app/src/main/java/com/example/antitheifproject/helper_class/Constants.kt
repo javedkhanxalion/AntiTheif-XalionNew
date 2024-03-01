@@ -12,10 +12,16 @@ import android.os.Handler
 import android.os.Looper
 import android.os.VibrationEffect
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 //import com.example.antitheifproject.Admin.Companion.isPassword
 import com.example.antitheifproject.service.SystemEventsService
 import com.example.antitheifproject.service.SystemEventsService.Companion.isAvailable
+import com.example.antitheifproject.utilities.CAMERA_PERMISSION
+import com.example.antitheifproject.utilities.FlashlightManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 
 object Constants {
@@ -113,7 +119,7 @@ object Constants {
                 mp?.start()
                 mp?.setOnCompletionListener {
                     setFlash(context, false)
-                    isAvailable=true
+                    isAvailable = true
                 }
             }
         } catch (unused: Exception) {
@@ -133,32 +139,16 @@ object Constants {
         }
     }
 
-    private const val DELAY_OFF_MILLIS = 3000L
     fun setFlash(context: Context, isOn: Boolean) {
+        if (ContextCompat.checkSelfPermission(context, CAMERA_PERMISSION) == 1) {
+            return
+        }
         try {
-        val hasSystemFeature =
-            context.applicationContext.packageManager.hasSystemFeature("android.hardware.camera.flash")
-        val cameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            val cameraId = cameraManager.cameraIdList[0]
-            if (hasSystemFeature) {
-                cameraManager.setTorchMode(cameraId, isOn)
-                if (!isOn) {
-                    // Turn off the flashlight after 3 seconds
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        try {
-                            cameraManager.setTorchMode(cameraId, false)
-                        } catch (e: CameraAccessException) {
-                            e.printStackTrace()
-                        }
-                    }, DELAY_OFF_MILLIS)
-                }
-            }
-        } catch (e: CameraAccessException) {
+            FlashlightManager.setFlash(context, isOn)
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
-
-    fun setAnalytics(context: Context?, str: String?) {}
 
     @JvmStatic
     fun isMyServiceRunning(context: Context, cls: Class<*>): Boolean {
@@ -171,6 +161,7 @@ object Constants {
         }
         return false
     }
+
     @JvmStatic
     fun isMainServiceRunning(context: Context): Boolean {
         try {
@@ -186,6 +177,7 @@ object Constants {
         }
         return false
     }
+
     @JvmStatic
     fun Fragment.isServiceRunning(): Boolean {
         try {

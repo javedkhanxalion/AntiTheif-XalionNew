@@ -49,7 +49,7 @@ class LoadingScreenFragment :
         lifecycleScope.launchWhenCreated {
             delay(200)
             _binding?.next?.visibility = View.VISIBLE
-            _binding?.animationView?.visibility = View.GONE
+            _binding?.animationView?.visibility = View.INVISIBLE
         }
 
         _binding?.next?.setOnClickListener {
@@ -135,16 +135,16 @@ class LoadingScreenFragment :
 
                 override fun nativeAdFailed(loadAdError: LoadAdError) {
                     if(isAdded && isVisible && !isDetached) {
-                        _binding?.nativeExitAd?.visibility = View.GONE
-                        _binding?.adView?.visibility = View.GONE
+                        _binding?.nativeExitAd?.visibility = View.INVISIBLE
+                        _binding?.adView?.visibility = View.INVISIBLE
                     }
                     super.nativeAdFailed(loadAdError)
                 }
 
                 override fun nativeAdValidate(string: String) {
                     if(isAdded && isVisible && !isDetached) {
-                        _binding?.nativeExitAd?.visibility = View.GONE
-                        _binding?.adView?.visibility = View.GONE
+                        _binding?.nativeExitAd?.visibility = View.INVISIBLE
+                        _binding?.adView?.visibility = View.INVISIBLE
                     }
                     super.nativeAdValidate(string)
                 }
