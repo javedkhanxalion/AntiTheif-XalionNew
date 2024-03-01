@@ -375,8 +375,6 @@ class FragmentPasswordDetail :
             object : NativeListener {
                 override fun nativeAdLoaded(currentNativeAd: NativeAd?) {
                     if (isAdded && isVisible && !isDetached) {
-                        _binding?.linearlayout?.nativeExitAd?.visibility = View.GONE
-                        _binding?.linearlayout?.adView?.visibility = View.GONE
                         _binding?.linearlayout?.nativeExitAd?.visibility = View.VISIBLE
                         _binding?.linearlayout?.adView?.visibility = View.GONE
                         val adView = if (val_ad_native_password_screen_is_H) {

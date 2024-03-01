@@ -47,7 +47,7 @@ class LoadingScreenFragment :
         adsManager = AdsManager.appAdsInit(activity ?: return)
         firebaseAnalytics("loading_fragment_open", "loading_fragment_open -->  Click")
         lifecycleScope.launchWhenCreated {
-            delay(3000)
+            delay(200)
             _binding?.next?.visibility = View.VISIBLE
             _binding?.animationView?.visibility = View.GONE
         }
@@ -66,9 +66,8 @@ class LoadingScreenFragment :
                 }
                 getIntentMove()
             }
-
-
         }
+
         loadNative()
         setupBackPressedCallback {
         }
