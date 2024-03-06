@@ -47,9 +47,11 @@ class LoadingScreenFragment :
         adsManager = AdsManager.appAdsInit(activity ?: return)
         firebaseAnalytics("loading_fragment_open", "loading_fragment_open -->  Click")
         lifecycleScope.launchWhenCreated {
-            delay(200)
-            _binding?.next?.visibility = View.VISIBLE
-            _binding?.animationView?.visibility = View.INVISIBLE
+            delay(3000)
+            if(isAdded && isVisible && !isDetached) {
+                _binding?.next?.visibility = View.VISIBLE
+                _binding?.animationView?.visibility = View.INVISIBLE
+            }
         }
 
         _binding?.next?.setOnClickListener {
@@ -67,7 +69,6 @@ class LoadingScreenFragment :
                 getIntentMove()
             }
         }
-
         loadNative()
         setupBackPressedCallback {
         }
@@ -129,6 +130,8 @@ class LoadingScreenFragment :
                     adsManager?.nativeAdsSplash()?.nativeViewMedia(currentNativeAd ?: return, adView)
                         _binding?.nativeExitAd?.removeAllViews()
                         _binding?.nativeExitAd?.addView(adView)
+                        _binding?.next?.visibility = View.VISIBLE
+                        _binding?.animationView?.visibility = View.INVISIBLE
                     }
                     super.nativeAdLoaded(currentNativeAd)
                 }
@@ -137,6 +140,8 @@ class LoadingScreenFragment :
                     if(isAdded && isVisible && !isDetached) {
                         _binding?.nativeExitAd?.visibility = View.INVISIBLE
                         _binding?.adView?.visibility = View.INVISIBLE
+                        _binding?.next?.visibility = View.VISIBLE
+                        _binding?.animationView?.visibility = View.INVISIBLE
                     }
                     super.nativeAdFailed(loadAdError)
                 }
@@ -145,6 +150,8 @@ class LoadingScreenFragment :
                     if(isAdded && isVisible && !isDetached) {
                         _binding?.nativeExitAd?.visibility = View.INVISIBLE
                         _binding?.adView?.visibility = View.INVISIBLE
+                        _binding?.next?.visibility = View.VISIBLE
+                        _binding?.animationView?.visibility = View.INVISIBLE
                     }
                     super.nativeAdValidate(string)
                 }

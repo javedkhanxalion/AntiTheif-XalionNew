@@ -2,16 +2,22 @@ package com.example.antitheifproject.utilities
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.view.Window
 import android.view.WindowInsetsController
 import android.widget.Button
 import android.widget.ImageView
@@ -27,8 +33,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
+import com.antitheftalarm.dont.touch.phone.finder.BuildConfig
 import com.antitheftalarm.dont.touch.phone.finder.R
 import com.bumptech.glide.Glide
+import com.example.antitheifproject.ads_manager.AdsBanners.isDebug
 import com.example.antitheifproject.helper_class.Constants.Battery_Detection
 import com.example.antitheifproject.helper_class.Constants.Battery_Detection_Check
 import com.example.antitheifproject.helper_class.Constants.Battery_Detection_Flash
@@ -73,12 +81,19 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
+import com.hypersoft.billing.BillingManager
+import com.hypersoft.billing.dataClasses.ProductType
+import com.hypersoft.billing.dataClasses.PurchaseDetail
+import com.hypersoft.billing.interfaces.BillingListener
 import java.util.Locale
 
 
 var counter = 0
+var monthly_price = ""
+var yearly_price = ""
 
 var isSplash = true
+var isShowInApp = true
 var isBackShow = true
 
 
@@ -137,6 +152,7 @@ var val_ad_instertital_Remove_Charger_screen_is_B = false
 var val_ad_instertital_Battery_Detection_screen_is_B = false
 var val_ad_instertital_Pocket_Detection_screen_is_B = false
 var val_ad_instertital_exit_dialog_is_B = false
+var val_banner_1 = false
 
 var inter_frequency_count = 0
 var id_frequency_counter = 3
@@ -161,7 +177,7 @@ var id_native_Battery_Detection_screen = ""
 var id_native_main_menu_screen = ""
 var id_native_app_open_screen = ""
 var id_exit_dialog_native = ""
-
+var id_banner_1: String = if (isDebug()) "ca-app-pub-3940256099942544/9214589741" else ""
 
 const val NOTIFY_CHANNEL_ID = "AppNameBackgroundService"
 
@@ -574,6 +590,81 @@ fun Fragment.showRatingDialog(
         ratingDialog?.show()
     }
 
+}
+
+//var inAppDialog: AlertDialog? = null
+var billingManager: BillingManager? = null
+
+fun Fragment.showInAppDialog(
+) {
+    val dialog = Dialog(context?:return)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.window?.setLayout(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT)
+    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog.setContentView(R.layout.in_app_dialog_first)
+//    val dialogView = layoutInflater.inflate(R.layout.in_app_dialog_first, null)
+//    inAppDialog = AlertDialog.Builder(requireContext()).create()
+//    inAppDialog?.setView(dialogView)
+//    inAppDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+//    inAppDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+//    billingManager = BillingManager(context ?: return)
+//    val subsProductIdList = listOf("subs_product_id_1", "subs_product_id_2", "subs_product_id_3")
+//    val inAppProductIdList = when (BuildConfig.DEBUG) {
+//        true -> listOf(billingManager?.getDebugProductIDList())
+//        false -> listOf("inapp_product_id_1", "inapp_product_id_2")
+//    }
+//    billingManager?.initialize(
+//        productInAppPurchases = inAppProductIdList as List<String>,
+//        productSubscriptions = subsProductIdList,
+//        billingListener = object : BillingListener {
+//            override fun onConnectionResult(isSuccess: Boolean, message: String) {
+//                Log.d(
+//                    "in_app_TAG",
+//                    "Billing: initBilling: onConnectionResult: isSuccess = $isSuccess - message = $message"
+//                )
+//                if (!isSuccess) {
+////                        proceedApp()
+//                }
+//            }
+//
+//            override fun purchasesResult(purchaseDetailList: List<PurchaseDetail>) {
+//                if (purchaseDetailList.isEmpty()) {
+//                    // No purchase found, reset all sharedPreferences (premium properties)
+//                }
+//                purchaseDetailList.forEachIndexed { index, purchaseDetail ->
+//                    Log.d(
+//                        "in_app_TAG",
+//                        "Billing: initBilling: purchasesResult: $index) $purchaseDetail "
+//                    )
+//                }
+////                    proceedApp()
+//            }
+//        }
+//    )
+//    billingManager?.productDetailsLiveData?.observe(viewLifecycleOwner) { productDetailList ->
+//        Log.d("in_app_TAG", "Billing: initObservers: $productDetailList")
+//
+//        productDetailList.forEach { productDetail ->
+//            if (productDetail.productType == ProductType.inapp) {
+//                if (productDetail.productId == "inapp_product_id_1") {
+//                    // productDetail
+//                } else if (productDetail.productId == "inapp_product_id_2") {
+//                    // productDetail
+//                }
+//            } else {
+//                if (productDetail.productId == "subs_product_id_1" && productDetail.planId == "subs_plan_id_1") {
+//                    // productDetail (monthly)
+//                } else if (productDetail.productId == "subs_product_id_2" && productDetail.planId == "subs_plan_id_2") {
+//                    // productDetail (3 months)
+//                } else if (productDetail.productId == "subs_product_id_3" && productDetail.planId == "subs_plan_id_3") {
+//                    // productDetail (yearly)
+//                }
+//            }
+//        }
+//    }
+    if (isVisible && isAdded && !isDetached) {
+        dialog.show()
+    }
 }
 
 private var ratingService: AlertDialog? = null

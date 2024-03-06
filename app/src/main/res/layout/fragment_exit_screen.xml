@@ -63,7 +63,7 @@
     <FrameLayout
         android:id="@+id/nativeExitAd"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:minHeight="240dp"
         android:layout_margin="10dp"
         android:background="@drawable/round_btn_ads"

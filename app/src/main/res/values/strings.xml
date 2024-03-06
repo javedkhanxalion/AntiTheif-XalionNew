@@ -109,5 +109,10 @@
     <string name="title_remove_charger" >Turn on the switch for the activate Remove Charger detection feature on your phone.</string>
     <string name="title_battery" >Turn on the switch for the activate Battery 100% detection feature on your phone.</string>
     <string name="loading_ad">Ad Loading ..</string>
+    <string name="unlimited_access">Unlimited Access</string>
+    <string name="monthly_subscription">Monthly Subscription</string>
+    <string name="yearly_subscription">Yearly Subscription</string>
+    <string name="annual_free_trail">Annual (Free Trail)</string>
+    <string name="no_commitment_cancel_anytime">No Commitment Cancel Anytime</string>
 
 </resources>

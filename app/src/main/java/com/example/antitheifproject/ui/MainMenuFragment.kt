@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.antitheftalarm.dont.touch.phone.finder.R
 import com.antitheftalarm.dont.touch.phone.finder.databinding.FragmentMainMenuActivityBinding
 import com.example.antitheifproject.adapter.MainMenuLinearAdapter
+import com.example.antitheifproject.ads_manager.AdsBanners.loadCollapsibleBanner
 import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.FunctionClass
 import com.example.antitheifproject.ads_manager.billing.BillingUtil
@@ -32,9 +33,11 @@ import com.example.antitheifproject.utilities.checkNotificationPermission
 import com.example.antitheifproject.utilities.clickWithThrottle
 import com.example.antitheifproject.utilities.firebaseAnalytics
 import com.example.antitheifproject.utilities.getMenuListGrid
+import com.example.antitheifproject.utilities.id_banner_1
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.isBackShow
+import com.example.antitheifproject.utilities.isShowInApp
 import com.example.antitheifproject.utilities.loadImage
 import com.example.antitheifproject.utilities.moreApp
 import com.example.antitheifproject.utilities.privacyPolicy
@@ -43,9 +46,11 @@ import com.example.antitheifproject.utilities.requestCameraPermissionAudio
 import com.example.antitheifproject.utilities.setImage
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.shareApp
+import com.example.antitheifproject.utilities.showInAppDialog
 import com.example.antitheifproject.utilities.showRatingDialog
 import com.example.antitheifproject.utilities.showServiceDialog
 import com.example.antitheifproject.utilities.showToast
+import com.example.antitheifproject.utilities.val_banner_1
 import com.example.antitheifproject.utilities.val_inter_main_medium
 import com.example.antitheifproject.utilities.val_inter_main_normal
 
@@ -98,6 +103,10 @@ class MainMenuFragment :
             }
             navView.privacyView.clickWithThrottle {
                 requireContext().privacyPolicy()
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            navView.viewTop.clickWithThrottle {
+                findNavController().navigate(R.id.FragmentInAppScreen)
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             navView.moreAppView.clickWithThrottle {
@@ -153,6 +162,15 @@ class MainMenuFragment :
                 ){
                 }
             }
+        }
+        loadCollapsibleBanner(
+            activity?:return,
+            binding?.mainLayout?.bannerAds!!,
+            val_banner_1,
+            id_banner_1
+        )
+        if(isShowInApp) {
+            findNavController().navigate(R.id.FragmentInAppScreen)
         }
     }
 

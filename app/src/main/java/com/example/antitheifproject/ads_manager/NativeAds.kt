@@ -333,12 +333,12 @@ object NativeAds {
         }
 
         if (nativeAd.icon == null) {
-            adView.iconView?.visibility = View.GONE
+            adView.iconView?.visibility = View.INVISIBLE
         } else {
             (adView.iconView as ImageView).setImageDrawable(
                 nativeAd.icon?.drawable
             )
-            adView.iconView?.visibility = View.GONE
+            adView.iconView?.visibility = View.INVISIBLE
         }
 
         if (nativeAd.advertiser == null) {

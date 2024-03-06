@@ -16,6 +16,7 @@ import com.example.antitheifproject.helper_class.DbHelper
 import com.example.antitheifproject.utilities.BaseFragment
 import com.example.antitheifproject.utilities.LANG_CODE
 import com.example.antitheifproject.utilities.firebaseAnalytics
+import com.example.antitheifproject.utilities.id_banner_1
 import com.example.antitheifproject.utilities.id_exit_dialog_native
 import com.example.antitheifproject.utilities.id_frequency_counter
 import com.example.antitheifproject.utilities.id_inter_counter
@@ -39,6 +40,7 @@ import com.example.antitheifproject.utilities.id_native_password_screen
 import com.example.antitheifproject.utilities.id_native_sound_screen
 import com.example.antitheifproject.utilities.inter_frequency_count
 import com.example.antitheifproject.utilities.isBackShow
+import com.example.antitheifproject.utilities.isShowInApp
 import com.example.antitheifproject.utilities.isSplash
 import com.example.antitheifproject.utilities.setLocaleMain
 import com.example.antitheifproject.utilities.setupBackPressedCallback
@@ -88,6 +90,7 @@ import com.example.antitheifproject.utilities.val_ad_native_show_image_screen
 import com.example.antitheifproject.utilities.val_ad_native_show_image_screen_is_H
 import com.example.antitheifproject.utilities.val_ad_native_sound_screen
 import com.example.antitheifproject.utilities.val_ad_native_sound_screen_is_H
+import com.example.antitheifproject.utilities.val_banner_1
 import com.example.antitheifproject.utilities.val_exit_dialog_native
 import com.example.antitheifproject.utilities.val_exit_dialog_native_is_H
 import com.example.antitheifproject.utilities.val_inter_main_medium
@@ -132,6 +135,7 @@ class SplashFragment :
         inter_frequency_count = 0
         initRemoteIds()
         initRemoteConfig()
+        isShowInApp=true
 //        googleMobileAdsConsentManager = GoogleMobileAdsConsentManager.getInstance(requireContext())
 //        googleMobileAdsConsentManager.gatherConsent(activity?:return) { consentError ->
 //            if (consentError != null) {
@@ -255,6 +259,7 @@ class SplashFragment :
         id_native_main_menu_screen = remoteConfig.getString("id_native_main_menu_screen")
         id_native_app_open_screen = remoteConfig.getString("id_native_app_open_screen")
         id_exit_dialog_native = remoteConfig.getString("id_exit_dialog_native")
+        id_banner_1 = remoteConfig.getString("id_banner_1")
 
         Log.d("remote_ids", "$id_inter_counter")
         Log.d("remote_ids", "$id_frequency_counter")
@@ -278,6 +283,7 @@ class SplashFragment :
         Log.d("remote_ids", id_native_Remove_Charger_screen)
         Log.d("remote_ids", id_native_Battery_Detection_screen)
         Log.d("remote_ids", id_exit_dialog_native)
+        Log.d("remote_ids", id_banner_1)
     }
 
     private fun initRemoteConfig() {
@@ -312,6 +318,7 @@ class SplashFragment :
                 val_ad_instertital_Remove_Charger_screen_is_B =remoteConfig!!["val_ad_instertital_Remove_Charger_screen_is_B"].asBoolean()
                 val_ad_instertital_Battery_Detection_screen_is_B =remoteConfig!!["val_ad_instertital_Battery_Detection_screen_is_B"].asBoolean()
                 val_ad_instertital_exit_dialog_is_B =remoteConfig!!["val_ad_instertital_exit_dialog_is_B"].asBoolean()
+                val_banner_1 =remoteConfig!!["val_banner_1"].asBoolean()
 
                 val_inter_main_medium = remoteConfig!!["val_inter_main_medium"].asBoolean()
                 val_inter_main_normal = remoteConfig!!["val_inter_main_normal"].asBoolean()
@@ -387,6 +394,10 @@ class SplashFragment :
                 Log.d(
                     "RemoteConfig",
                     "Fetch val_inter_main_medium -> $val_inter_main_medium"
+                )
+                Log.d(
+                    "RemoteConfig",
+                    "Fetch val_inter_main_medium -> $val_banner_1"
                 )
                 Log.d(
                     "RemoteConfig",

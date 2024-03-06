@@ -64,5 +64,10 @@
         android:name="com.example.antitheifproject.ui.FragmentExitScreen"
         android:label="FragmentExitScreen"
         tools:layout="@layout/fragment_exit_screen" />
+    <fragment
+        android:id="@+id/FragmentInAppScreen"
+        android:name="com.example.antitheifproject.ui.FragmentInAppScreen"
+        android:label="FragmentInAppScreen"
+        tools:layout="@layout/in_app_dialog_first" />
 
 </navigation>
