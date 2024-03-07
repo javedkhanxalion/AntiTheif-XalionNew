@@ -20,8 +20,8 @@ android {
         applicationId = "com.antitheftalarm.dont.touch.phone.finder"
         minSdk = 24
         targetSdk = 34
-        versionCode = 10
-        versionName = "2.0"
+        versionCode = 11
+        versionName = "2.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "AntiThief_v$versionName($versionCode)")
     }
@@ -88,7 +88,7 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.1.0")
     implementation("org.tensorflow:tensorflow-lite-task-audio:0.4.0")
 // Ads Integration
-    implementation("com.android.billingclient:billing:6.1.0")
+//    implementation("com.android.billingclient:billing:6.1.0")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")

@@ -123,8 +123,8 @@ class SplashFragment :
         adsManager = AdsManager.appAdsInit(activity ?: return)
         dbHelper = DbHelper(context ?: return)
         dbHelper?.getStringData(requireContext(), LANG_CODE, "en")?.let { setLocaleMain(it) }
-        BillingUtil(requireActivity(), billingCallback = {
-        }).setupConnection(false)
+//        BillingUtil(requireActivity(), billingCallback = {
+//        }).setupConnection(false)
         loadTwoInterAdsSplash(
             adsManager ?: return,
             activity ?: return,

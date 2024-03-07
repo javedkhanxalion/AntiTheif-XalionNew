@@ -78,9 +78,11 @@ class MainMenuFragment :
             mainLayout.topLay.settingBtn.clickWithThrottle {
                 if (AdsManager.isNetworkAvailable(context)) {
                     firebaseAnalytics("purchase_dialog_continue_btn", "makingPurchase")
-                    BillingUtil(requireActivity(), billingCallback = {
-                        requireActivity().recreate()
-                    }).purchase(true)
+//                    BillingUtil(requireActivity(), billingCallback = {
+//                        requireActivity().recreate()
+//                    }).purchase(true)
+
+                    findNavController().navigate(R.id.FragmentInAppScreen)
                 } else {
                     FunctionClass.toast(requireActivity(), getString(R.string.no_internet))
                 }

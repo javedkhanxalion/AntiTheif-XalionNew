@@ -207,9 +207,9 @@ var introHeading = arrayOf(
 )
 
 var introDetailText = arrayOf(
-    "Pocket Detection",
-    "Clap Detection",
-    "Motion Detection"
+    "Detect Phone thieves Effortlessly",
+    "Find your phone by Clap using AI tech & sounds effects",
+    "Anti Pickpocket catch a mobile phone thief"
 )
 
 fun Fragment.languageData(): ArrayList<LanguageAppModel> {

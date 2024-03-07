@@ -114,5 +114,7 @@
     <string name="yearly_subscription">Yearly Subscription</string>
     <string name="annual_free_trail">Annual (Free Trail)</string>
     <string name="no_commitment_cancel_anytime">No Commitment Cancel Anytime</string>
+    <string name="_12_99_yearly">$12.99 / Yearly</string>
+    <string name="_1_99_monthly">$1.99 / Monthly</string>
 
 </resources>

@@ -23,6 +23,7 @@ class FragmentInAppScreen :
     BaseFragment<InAppDialogFirstBinding>(InAppDialogFirstBinding::inflate) {
 
     var billingManager: BillingManager? = null
+    var planId: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,9 +35,10 @@ class FragmentInAppScreen :
             binding?.monthlyCheck!!,
             binding?.monthlyButton!!
         )
+        planId = "gold-plan-yearly"
         billingManager = BillingManager(context ?: return)
         val subsProductIdList =
-            listOf("subs_product_id_1", "subs_product_id_2", "subs_product_id_3")
+            listOf("gold_product")
         val inAppProductIdList = when (BuildConfig.DEBUG) {
             true -> listOf(billingManager?.getDebugProductIDList())
             false -> listOf("inapp_product_id_1", "inapp_product_id_2")
@@ -73,13 +75,14 @@ class FragmentInAppScreen :
             Log.d("in_app_TAG", "Billing: initObservers: $productDetailList")
 
             productDetailList.forEach { productDetail ->
-                if (productDetail.productType == ProductType.inapp) {
-                    if (productDetail.productId == "gold_product" && productDetail.planId == "gold_plan_weekly") {
+                if (productDetail.productType == ProductType.subs) {
+                    if (productDetail.productId == "gold_product" && productDetail.planId == "gold-plan-monthly") {
                         // productDetail (monthly)
                         _binding?.monthlyText?.text = "${productDetail.price} / Monthly"
+                        productDetail.freeTrialDays = 3
                     } else if (productDetail.productId == "subs_product_id_2" && productDetail.planId == "subs_plan_id_2") {
                         // productDetail (3 months)
-                    } else if (productDetail.productId == "gold_product" && productDetail.planId == "gold_plan_yearly") {
+                    } else if (productDetail.productId == "gold_product" && productDetail.planId == "gold-plan-yearly") {
                         // productDetail (yearly)
                         _binding?.yearlyText?.text = "${productDetail.price} / Yearly"
                         productDetail.freeTrialDays = 3
@@ -90,18 +93,24 @@ class FragmentInAppScreen :
         }
 
         _binding?.premiumButton?.clickWithThrottle {
-            billingManager?.makeSubPurchase(activity, "", "", object : OnPurchaseListener {
-                override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
-                    Log.d("in_app_TAG", "makeSubPurchase: $isPurchaseSuccess - $message")
-                    PurchasePrefs(context).putBoolean("inApp", true)
-                }
-            })
+            billingManager?.makeSubPurchase(
+                activity,
+                "gold_product",
+                planId?:return@clickWithThrottle,
+                object : OnPurchaseListener {
+                    override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
+                        Log.d("in_app_TAG", "makeSubPurchase: $isPurchaseSuccess - $message")
+                        if(isPurchaseSuccess){
+                            PurchasePrefs(context).putBoolean("inApp", true)
+                        }
+                    }
+                })
         }
-
         _binding?.closeIcon?.clickWithThrottle {
             findNavController().navigateUp()
         }
         _binding?.monthlyButton?.clickWithThrottle {
+            planId="gold-plan-monthly"
             updateUI(
                 binding?.monthlyCheck!!,
                 binding?.monthlyButton!!,
@@ -110,6 +119,7 @@ class FragmentInAppScreen :
             )
         }
         _binding?.yearlyButton?.clickWithThrottle {
+            planId="gold-plan-yearly"
             updateUI(
                 binding?.yearlyCheck!!,
                 binding?.yearlyButton!!,

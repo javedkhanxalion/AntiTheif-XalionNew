@@ -5,7 +5,6 @@ import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.Context
 import android.util.Log
-import com.android.billingclient.api.*
 import com.example.antitheifproject.ads_manager.FullScreenAds
 import com.example.antitheifproject.ads_manager.NativeAds
 import com.antitheftalarm.dont.touch.phone.finder.BuildConfig
@@ -19,26 +18,26 @@ class BillingUtil(
     var isBillingReady = false
     private var TAG: String = "billingApp"
     private var lifeTime: String = "demo_1"
-    private var arrayListInApp = ArrayList<SkuDetails>()
+//    private var arrayListInApp = ArrayList<SkuDetails>()
     private var billingActivity: Activity? = null
 
-    private val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
-        Log.d(TAG, "getOldPurchases: in Listener")
-        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-            for (purchase in purchases) {
-                handlePurchase(activity, purchase)
-            }
-        } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
-            Log.d(TAG, "getOldPurchases: User Cancelled")
-        } else {
-            Log.d(TAG, "getOldPurchases: Other Error")
-        }
-    }
+//    private val purchasesUpdatedListener = PurchasesUpdatedListener { billingResult, purchases ->
+//        Log.d(TAG, "getOldPurchases: in Listener")
+//        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+//            for (purchase in purchases) {
+//                handlePurchase(activity, purchase)
+//            }
+//        } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+//            Log.d(TAG, "getOldPurchases: User Cancelled")
+//        } else {
+//            Log.d(TAG, "getOldPurchases: Other Error")
+//        }
+//    }
     companion object{
         var billingPrice = ""
     }
 
-    private var billingClient = BillingClient.newBuilder(activity).setListener(purchasesUpdatedListener).enablePendingPurchases().build()
+//    private var billingClient = BillingClient.newBuilder(activity).setListener(purchasesUpdatedListener).enablePendingPurchases().build()
 
     init {
         lifeTime = if (isDebug()) "android.test.purchased" else "demo_1"
@@ -60,7 +59,7 @@ class BillingUtil(
         return false
     }
 
-    fun setupConnection(isLaunch: Boolean) {
+/*    fun setupConnection(isLaunch: Boolean) {
 //        billingActivity = PremiumScreenActivity()
 
 //        if (billingActivity?.javaClass?.toString()?.equals(activity.javaClass.toString(), true) == true) {
@@ -149,9 +148,9 @@ class BillingUtil(
 //            Log.d("screenShow", "setupconnection else")
 //
 //        }
-    }
+    }*/
 
-    fun purchase(isLaunch: Boolean) {
+/*    fun purchase(isLaunch: Boolean) {
 //        billingActivity = PremiumScreenActivity()
 //        if (billingActivity?.javaClass?.toString()?.equals(activity.javaClass.toString(), true) == true) {
             Log.d("screenShow", "purchase: screen")
@@ -164,8 +163,9 @@ class BillingUtil(
 //            Log.d("screenShow", "purchase: other screen")
 //
 //        }
-    }
+    }*/
 
+/*
     private fun handlePurchase(context: Context, purchase: Purchase) {
         val acknowledgePurchaseResponseListener = AcknowledgePurchaseResponseListener {
             Log.d(TAG, "getOldPurchases: debugMessage  ${it.debugMessage}")
@@ -195,11 +195,12 @@ class BillingUtil(
             }
         }
     }
+*/
 
     fun checkPurchased(context: Context): Boolean {
         return PurchasePrefs(context).getBoolean("inApp")
     }
-    fun getOldPurchases(context: Context) {
+   /* fun getOldPurchases(context: Context) {
         billingClient.queryPurchasesAsync(BillingClient.SkuType.INAPP) { billingResult, list ->
             Log.e("atiqTest", "getOldPurchases: $billingResult")
             val purchases = list
@@ -215,6 +216,6 @@ class BillingUtil(
             }
         }
 
-    }
+    }*/
 }
 
