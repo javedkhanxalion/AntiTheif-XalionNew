@@ -8,6 +8,19 @@
 
 
 
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/closeTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_30sdp"
+        android:background="@drawable/rect_menu_bg_dialog"
+        app:tint="@color/black"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
     <TextView
         android:id="@+id/crown"
         android:layout_width="wrap_content"
@@ -60,6 +73,7 @@
             android:id="@+id/monthlyTextT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintLeft_toRightOf="@id/monthlyCheck"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -72,6 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintLeft_toRightOf="@id/monthlyTextT"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +101,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/yearlyButton"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="@dimen/_60sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/lifeTimeButton"
@@ -109,21 +124,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/annual_free_trail"
+            android:textSize="@dimen/_11sdp"
             android:textColor="@color/black"
             android:layout_marginStart="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/yearlyTextTDetail"
             app:layout_constraintStart_toEndOf="@id/yearlyCheck"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/yearlyCheck" />
+
+        <TextView
+            android:id="@+id/yearlyTextTDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9sdp"
+            android:text="@string/annual_free_trail_second"
+            android:textColor="@color/nveTextColor"
+            android:layout_marginEnd="@dimen/_50sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/yearlyCheck"
+            app:layout_constraintStart_toStartOf="@id/yearlyTextT"
+            app:layout_constraintTop_toBottomOf="@id/yearlyTextT" />
 
         <TextView
             android:id="@+id/yearlyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/yearlyTextT"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@+id/yearlyTextT"
+            android:paddingEnd="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/yearlyTextT"
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="#FF005C"/>
 

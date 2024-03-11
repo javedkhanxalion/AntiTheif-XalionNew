@@ -108,4 +108,13 @@
     <string name="title_battery" >Schalten Sie den Schalter ein, um die Batterie-100-%-Erkennungsfunktion auf Ihrem Telefon zu aktivieren.</string>
     <string name="loading_ad">Ad Loading ..</string>
 
+    <string name="unlimited_access">Unbegrenzter Zugriff</string>
+    <string name="monthly_subscription">Monatliches Abonnement</string>
+    <string name="yearly_subscription">Jahresabonnement</string>
+    <string name="annual_free_trail">Jährlich (kostenloser Trail)</string>
+    <string name="no_commitment_cancel_anytime">Keine Verpflichtung, jederzeit stornierbar</string>
+    <string name="_12_99_yearly">12,99 $/Jahr</string>
+    <string name="_1_99_monthly">1,99 $/Monat</string>
+    <string name="annual_free_trail_second">Nach 3 Tagen kostenloser Testversion. Jahresabonnement für 12,0 $ nach Ablauf der kostenlosen Testversion.</string>
+
 </resources>

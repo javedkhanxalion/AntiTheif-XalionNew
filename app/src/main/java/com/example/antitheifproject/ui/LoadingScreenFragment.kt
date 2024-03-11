@@ -12,6 +12,7 @@ import com.antitheftalarm.dont.touch.phone.finder.databinding.FragmentLoadingBin
 import com.example.antitheifproject.ads_manager.loadTwoInterAds
 import com.example.antitheifproject.ads_manager.showNormalInterAdSingle
 import com.example.antitheifproject.helper_class.DbHelper
+import com.example.antitheifproject.utilities.ANTI_TITLE
 import com.example.antitheifproject.utilities.BaseFragment
 import com.example.antitheifproject.utilities.IS_FIRST
 import com.example.antitheifproject.utilities.IS_INTRO
@@ -38,7 +39,6 @@ class LoadingScreenFragment :
     private var sharedPrefUtils: DbHelper? = null
     private var adsManager: AdsManager? = null
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,7 +53,6 @@ class LoadingScreenFragment :
                 _binding?.animationView?.visibility = View.INVISIBLE
             }
         }
-
         _binding?.next?.setOnClickListener {
             adsManager?.let {
                 showNormalInterAdSingle(
@@ -103,7 +102,7 @@ class LoadingScreenFragment :
                 "loading_fragment_load_next_btn_main",
                 "loading_fragment_load_next_btn_main -->  Click"
             )
-           return findNavController().navigate(R.id.myMainMenuFragment)
+           return findNavController().navigate(R.id.FragmentInAppScreen,bundleOf("Is_From_Splash" to true))
         }
     }
 

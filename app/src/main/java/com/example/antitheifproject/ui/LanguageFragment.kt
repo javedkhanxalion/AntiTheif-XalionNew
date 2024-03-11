@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.core.app.ActivityCompat.recreate
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.antitheftalarm.dont.touch.phone.finder.R
 import com.antitheftalarm.dont.touch.phone.finder.databinding.FragmentLanguageBinding
@@ -70,7 +71,9 @@ class LanguageFragment : BaseFragment<FragmentLanguageBinding>(FragmentLanguageB
                 sharedPrefUtils?.saveData(requireContext(), LANG_CODE, positionSelected) ?: "en"
                 setLocaleMain(positionSelected)
                 sharedPrefUtils?.saveData(requireContext(), IS_FIRST, true)
-                findNavController().navigate(R.id.myMainMenuFragment)
+                findNavController().navigate(R.id.FragmentInAppScreen,
+                    bundleOf("Is_From_Splash" to true)
+                )
             }
         }
 

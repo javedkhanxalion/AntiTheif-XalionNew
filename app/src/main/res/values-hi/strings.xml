@@ -107,4 +107,13 @@
     <string name='title_battery' >अपने फ़ोन पर बैटरी 100% पहचान सुविधा सक्रिय करने के लिए स्विच चालू करें।</string>
     <string name="loading_ad">Ad Loading ..</string>
 
+    <string name='unlimited_access'>असीमित पहुंच</string>
+    <string name='monthly_subscription'>मासिक सदस्यता</string>
+    <string name='yearly_subscription'>वार्षिक सदस्यता</string>
+    <string name='annual_free_trail'>वार्षिक (निःशुल्क ट्रेल)</string>
+    <string name='no_commitment_cancel_anytime'>कोई प्रतिबद्धता नहीं, कभी भी रद्द करें</string>
+    <string name= "_12_99_yearly">$12.99 / वार्षिक</string>
+<string name = "_1_99_monthly">$1.99 / मासिक</string>
+<string name='annual_free_trail_second'>3 दिनों के निःशुल्क परीक्षण के बाद। निःशुल्क ट्रायल समाप्त होने के बाद 12.0$ की वार्षिक सदस्यता।</string>
+
 </resources>

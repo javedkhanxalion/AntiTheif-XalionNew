@@ -109,4 +109,13 @@
     <string name="title_battery" >携帯電話のバッテリー 100% 検出機能を有効にするスイッチをオンにします。</string>
     <string name="loading_ad">Ad Loading ..</string>
 
+    <string name="unlimited_access">無制限のアクセス</string>
+    <string name="monthly_subscription">月次サブスクリプション</string>
+    <string name="yearly_subscription">年間サブスクリプション</string>
+    <string name="annual_free_trail">年次 (無料トレイル)</string>
+    <string name="no_commitment_cancel_anytime">コミットメントなしでいつでもキャンセル</string>
+    <string name="_12_99_yearly">$12.99 / 年間</string>
+    <string name="_1_99_monthly">月額 1.99 ドル</string>
+    <string name="annual_free_trail_second">3 日間の無料トライアル後。無料トライアル終了後は 12.0 ドルの年間サブスクリプション。</string>
+
 </resources>

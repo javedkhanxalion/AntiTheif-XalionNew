@@ -107,4 +107,13 @@
     <string name="title_battery" >Activa el interruptor para activar la función de detección de batería al 100 % en tu teléfono.</string>
     <string name="loading_ad">Ad Loading ..</string>
 
+    <string name="unlimited_access">Acceso ilimitado</string>
+    <string name="monthly_subscription">Suscripción mensual</string>
+    <string name="yearly_subscription">Suscripción anual</string>
+    <string name="annual_free_trail">Anual (Pista gratuita)</string>
+    <string name="no_commitment_cancel_anytime">Cancelar sin compromiso en cualquier momento</string>
+    <string name="_12_99_yearly">$12,99 / Anual</string>
+    <string name="_1_99_monthly">$1,99 / Mensual</string>
+    <string name="annual_free_trail_second">Después de 3 días de prueba gratuita. Suscripción anual por 12,0 $ después de que finalice la prueba gratuita.</string>
+
 </resources>

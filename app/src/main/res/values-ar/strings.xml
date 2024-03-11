@@ -107,4 +107,13 @@
     <string name="title_battery" >قم بتشغيل المفتاح لتنشيط ميزة اكتشاف البطارية بنسبة 100% على هاتفك.</string>
     <string name="loading_ad">Ad Loading ..</string>
 
+    <string name="unlimited_access">وصول غير محدود</string>
+    <string name="monthly_subscription">الاشتراك الشهري</string>
+    <string name="yearly_subscription">الاشتراك السنوي</string>
+    <string name="annual_free_trail">سنوي (الطريق المجاني)</string>
+    <string name="no_commitment_cancel_anytime">لا يوجد التزام بالإلغاء في أي وقت</string>
+    <string name="_12_99_yearly">12.99 دولارًا أمريكيًا / سنويًا</string>
+    <string name="_1_99_monthly">1.99 دولارًا أمريكيًا / شهريًا</string>
+    <string name="annual_free_trail_second">بعد تجربة مجانية مدتها 3 أيام.اشتراك سنوي بقيمة 12.0 دولارًا بعد انتهاء النسخة التجريبية المجانية.</string>
+
 </resources>

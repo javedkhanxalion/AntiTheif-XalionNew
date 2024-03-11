@@ -83,7 +83,7 @@ class MainMenuFragment :
             mainLayout.topLay.settingBtn.clickWithThrottle {
                 if (AdsManager.isNetworkAvailable(context)) {
                     firebaseAnalytics("purchase_dialog_continue_btn", "makingPurchase")
-                    findNavController().navigate(R.id.FragmentInAppScreen)
+                    findNavController().navigate(R.id.FragmentInAppScreen,bundleOf("Is_From_Splash" to true))
                 } else {
                     FunctionClass.toast(requireActivity(), getString(R.string.no_internet))
                 }
@@ -109,7 +109,7 @@ class MainMenuFragment :
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             navView.viewTop.clickWithThrottle {
-                findNavController().navigate(R.id.FragmentInAppScreen)
+                findNavController().navigate(R.id.FragmentInAppScreen,bundleOf("Is_From_Splash" to false))
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             navView.moreAppView.clickWithThrottle {
@@ -300,9 +300,9 @@ class MainMenuFragment :
         sharedPrefUtils?.getBooleanData(context ?: return, IS_NOTIFICATION, false)?.let {
             _binding?.navView?.customSwitch?.isChecked = it
         }
-        if(isShowInApp) {
-            findNavController().navigate(R.id.FragmentInAppScreen)
-        }
+//        if(isShowInApp) {
+//            findNavController().navigate(R.id.FragmentInAppScreen)
+//        }
     }
 
 }

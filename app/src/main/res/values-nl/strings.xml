@@ -106,4 +106,13 @@
     <string name="title_battery" >Zet de schakelaar aan om de functie Batterij 100% detectie op je telefoon te activeren.</string>
     <string name="loading_ad">Ad Loading ..</string>
 
+    <string name="unlimited_access">Onbeperkte toegang</string>
+    <string name="monthly_subscription">Maandelijks abonnement</string>
+    <string name="yearly_subscription">Jaarabonnement</string>
+    <string name="annual_free_trail">Jaarlijks (gratis parcours)</string>
+    <string name="no_commitment_cancel_anytime">Geen verplichting op elk moment annuleren</string>
+    <string name="_12_99_yearly">$12,99/jaarlijks</string>
+    <string name="_1_99_monthly">$1,99/maandelijks</string>
+    <string name="annual_free_trail_second">Na een gratis proefperiode van 3 dagen. Jaarabonnement voor 12,0$ nadat de gratis proefperiode is afgelopen.</string>
+
 </resources>
