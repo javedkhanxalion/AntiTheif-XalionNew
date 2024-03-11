@@ -27,7 +27,6 @@ import com.example.antitheifproject.utilities.clickWithThrottle
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.id_native_password_screen
-import com.example.antitheifproject.utilities.isBackShow
 import com.example.antitheifproject.utilities.loadImage
 import com.example.antitheifproject.utilities.setImage
 import com.example.antitheifproject.utilities.setupBackPressedCallback
@@ -64,59 +63,60 @@ class FragmentPasswordDetail :
         mComponentName = ComponentName(context ?: return, Admin::class.java)
         dbHelper = DbHelper(context ?: return)
         _binding?.topLay?.title?.text = model?.maniTextTitle
-        if (isBackShow) {
-            adsManager?.let {
-                showTwoInterAd(
-                    ads = it,
-                    activity = activity ?: return@let,
-                    remoteConfigMedium = val_inter_main_medium,
-                    remoteConfigNormal = val_inter_main_normal,
-                    adIdMedium = id_inter_main_medium,
-                    adIdNormal = id_inter_main_normal,
-                    tagClass = model?.maniTextTitle ?: return@let,
-                    isBackPress = true,
-                    layout = binding?.adsLay!!
-                ) {
-                }
-            }
-        }
         _binding?.topLay?.navMenu?.loadImage(context ?: return, R.drawable.back_btn)
 
         _binding?.run {
-
             topLay.navMenu.clickWithThrottle {
-                isBackShow = model?.backRemote ?: return@clickWithThrottle
                 findNavController().navigateUp()
             }
-
             gridLayout.soundIcon.clickWithThrottle {
-                isBackShow = true
-                findNavController().navigate(
-                    R.id.FragmentSoundSelection,
-                    bundleOf(ANTI_TITLE to model)
-                )
+                adsManager?.let {
+                    showTwoInterAd(
+                        ads = it,
+                        activity = activity ?: return@let,
+                        remoteConfigMedium = val_inter_main_medium,
+                        remoteConfigNormal = val_inter_main_normal,
+                        adIdMedium = id_inter_main_medium,
+                        adIdNormal = id_inter_main_normal,
+                        tagClass = model?.maniTextTitle ?: return@let,
+                        isBackPress = true,
+                        layout = binding?.adsLay!!
+                    ) {
+                        findNavController().navigate(
+                            R.id.FragmentSoundSelection,
+                            bundleOf(ANTI_TITLE to model)
+                        )
+                    }
+                }
             }
-
             linearlayout.soundIcon.clickWithThrottle {
-                isBackShow = true
-                findNavController().navigate(
-                    R.id.FragmentSoundSelection,
-                    bundleOf(ANTI_TITLE to model)
-                )
+                adsManager?.let {
+                    showTwoInterAd(
+                        ads = it,
+                        activity = activity ?: return@let,
+                        remoteConfigMedium = val_inter_main_medium,
+                        remoteConfigNormal = val_inter_main_normal,
+                        adIdMedium = id_inter_main_medium,
+                        adIdNormal = id_inter_main_normal,
+                        tagClass = model?.maniTextTitle ?: return@let,
+                        isBackPress = true,
+                        layout = binding?.adsLay!!
+                    ) {
+                        findNavController().navigate(
+                            R.id.FragmentSoundSelection,
+                            bundleOf(ANTI_TITLE to model)
+                        )
+                    }
+                }
             }
-
             topLay.setLayoutBtn.clickWithThrottle {
                 loadLayoutDirection(!(isGridLayout ?: return@clickWithThrottle))
             }
-
         }
 
         setupBackPressedCallback {
-            isBackShow = model?.backRemote ?: return@setupBackPressedCallback
             findNavController().navigateUp()
-
         }
-
     }
 
     private fun loadLayoutDirection(isGrid: Boolean) {
@@ -318,7 +318,7 @@ class FragmentPasswordDetail :
     }
 
     private fun loadNativeGrid() {
-        adsManager?.nativeAds()?.loadNativeAd(
+        adsManager?.nativeAdsSplash()?.loadNativeAd(
             activity ?: return,
             val_ad_native_password_screen,
             id_native_password_screen,
@@ -339,7 +339,7 @@ class FragmentPasswordDetail :
                                     null
                                 ) as NativeAdView
                             }
-                            adsManager?.nativeAds()
+                            adsManager?.nativeAdsSplash()
                                 ?.nativeViewPolicy(currentNativeAd ?: return, adView)
                             _binding?.gridLayout?.nativeExitAd?.removeAllViews()
                             _binding?.gridLayout?.nativeExitAd?.addView(adView)
@@ -368,7 +368,7 @@ class FragmentPasswordDetail :
     }
 
     private fun loadNativeList() {
-        adsManager?.nativeAds()?.loadNativeAd(
+        adsManager?.nativeAdsSplash()?.loadNativeAd(
             activity ?: return,
             val_ad_native_password_screen,
             id_native_password_screen,
@@ -382,7 +382,7 @@ class FragmentPasswordDetail :
                         } else {
                             layoutInflater.inflate(R.layout.ad_unified_low, null) as NativeAdView
                         }
-                        adsManager?.nativeAds()?.nativeViewPolicy(currentNativeAd ?: return, adView)
+                        adsManager?.nativeAdsSplash()?.nativeViewPolicy(currentNativeAd ?: return, adView)
                         _binding?.linearlayout?.nativeExitAd?.removeAllViews()
                         _binding?.linearlayout?.nativeExitAd?.addView(adView)
                     }

@@ -20,8 +20,8 @@ import com.example.antitheifproject.utilities.IS_GRID
 import com.example.antitheifproject.utilities.clickWithThrottle
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
+import com.example.antitheifproject.utilities.id_native_main_menu_screen
 import com.example.antitheifproject.utilities.id_native_sound_screen
-import com.example.antitheifproject.utilities.isBackShow
 import com.example.antitheifproject.utilities.loadImage
 import com.example.antitheifproject.utilities.setImage
 import com.example.antitheifproject.utilities.setupBackPressedCallback
@@ -47,7 +47,6 @@ class FragmentSoundSelection :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         arguments?.let {
             position = it.getParcelable(ANTI_TITLE) ?: return@let
         }
@@ -59,7 +58,6 @@ class FragmentSoundSelection :
         }
         _binding?.topLay?.title?.text = getString(R.string.select_sound)
         _binding?.topLay?.navMenu?.loadImage(context ?: return, R.drawable.back_btn)
-        if (isBackShow) {
             adsManager?.let {
                 showTwoInterAd(
                     ads = it,
@@ -74,22 +72,17 @@ class FragmentSoundSelection :
                 ) {
                 }
             }
-        }
         _binding?.run {
             topLay.navMenu.clickWithThrottle {
-               isBackShow=val_ad_instertital_sound_screen_is_B
                 findNavController().popBackStack()
             }
             topLay.setLayoutBtn.clickWithThrottle {
                 loadLayoutDirection(!(isGridLayout ?: return@clickWithThrottle))
             }
         }
-
         setupBackPressedCallback {
-           isBackShow=val_ad_instertital_sound_screen_is_B
             findNavController().popBackStack()
         }
-
         loadNative()
     }
 
@@ -167,6 +160,14 @@ class FragmentSoundSelection :
                     super.nativeAdValidate(string)
                 }
             })
+
+//        adsManager?.nativeAdsSplash()?.loadNativeAd(
+//            activity ?: return,
+//            true,
+//            id_native_main_menu_screen,
+//            object : NativeListener {
+//
+//            })
     }
 
 }

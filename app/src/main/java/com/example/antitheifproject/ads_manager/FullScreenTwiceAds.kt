@@ -73,24 +73,19 @@ fun loadTwoInterAds(
                         override fun adFailed() {
                             Log.d(TAG, "adFailed: normal inter failed")
                             firebaseAnalytics("inter_normal_failed_$tagClass", "interLoaded")
-
-
                         }
 
                         override fun adLoaded() {
                             Log.d(TAG, "adLoaded: normal inter load")
                             firebaseAnalytics("inter_normal_loaded_$tagClass", "interLoaded")
-
                         }
 
                         override fun adNotFound() {
                             Log.d(TAG, "adNotFound: normal not found")
                             firebaseAnalytics("inter_normal_not_found_$tagClass", "interLoaded")
-
                         }
 
                         override fun adAlreadyLoaded() {
-
                         }
                     })
             }
@@ -117,7 +112,10 @@ fun showTwoInterAd(
 ) {
     Log.d(TAG, "showTwoInterAd->adIdMedium: $adIdMedium")
     Log.d(TAG, "showTwoInterAd->adIdNormal: $adIdNormal")
-    Log.d(TAG, "showTwoInterAd->adIdNormal: $id_inter_counter")
+    Log.d(TAG, "showTwoInterAd->id_inter_counter: $id_inter_counter")
+    Log.d(TAG, "showTwoInterAd->id_frequency_counter: $id_frequency_counter")
+    Log.d(TAG, "showTwoInterAd->remoteConfigMedium: $remoteConfigMedium")
+    Log.d(TAG, "showTwoInterAd->remoteConfigNormal: $remoteConfigNormal")
     if (mInterstitialAd == null || (!remoteConfigMedium && !remoteConfigNormal)) {
         function.invoke()
         return
@@ -203,7 +201,7 @@ fun showTwoInterAd(
         }, adIdMedium, object : AdsListener {
 
         })
-    }, 1000)
+    }, 200)
 /*    layout.visibility = View.VISIBLE
     Handler().postDelayed({
         layout.visibility = View.GONE
@@ -357,7 +355,7 @@ fun showTwoInterAdFirst(
         }, adIdMedium, object : AdsListener {
 
         })
-    }, 1000)
+    }, 200)
 }
 
 private fun showNormalInterAd(

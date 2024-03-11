@@ -64,7 +64,7 @@
         android:id="@+id/nativeExitAd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="240dp"
+        android:minHeight="220dp"
         android:layout_margin="10dp"
         android:background="@drawable/round_btn_ads"
         app:layout_constraintEnd_toEndOf="parent"

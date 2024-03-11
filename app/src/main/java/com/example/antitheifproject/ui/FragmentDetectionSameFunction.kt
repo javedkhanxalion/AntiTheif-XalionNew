@@ -20,7 +20,6 @@ import com.example.antitheifproject.utilities.autoServiceFunctionInternalModule
 import com.example.antitheifproject.utilities.clickWithThrottle
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
-import com.example.antitheifproject.utilities.isBackShow
 import com.example.antitheifproject.utilities.loadImage
 import com.example.antitheifproject.utilities.setImage
 import com.example.antitheifproject.utilities.setupBackPressedCallback
@@ -51,45 +50,56 @@ class FragmentDetectionSameFunction :
         _binding?.textView3?.text = model?.bottomText
         sharedPrefUtils = DbHelper(context ?: return)
 
-        if(isBackShow) {
-            adsManager?.let {
-                showTwoInterAd(
-                    ads = it,
-                    activity = activity ?: return@let,
-                    remoteConfigMedium = val_inter_main_medium,
-                    remoteConfigNormal = val_inter_main_normal,
-                    adIdMedium = id_inter_main_medium,
-                    adIdNormal = id_inter_main_normal,
-                    tagClass = model?.maniTextTitle ?: return@let,
-                    isBackPress = true,
-                    layout = binding?.adsLay!!
-                ) {
-                }
-            }
-        }
+
         _binding?.topLay?.navMenu?.loadImage(context ?: return, R.drawable.back_btn)
 
         _binding?.run {
 
             topLay.navMenu.clickWithThrottle {
-               isBackShow=model?.backRemote?:return@clickWithThrottle
                 findNavController().navigateUp()
             }
 
+
             gridLayout.soundIcon.clickWithThrottle {
-                isBackShow=true
-                findNavController().navigate(
-                    R.id.FragmentSoundSelection,
-                    bundleOf(ANTI_TITLE to model)
-                )
+                adsManager?.let {
+                    showTwoInterAd(
+                        ads = it,
+                        activity = activity ?: return@let,
+                        remoteConfigMedium = val_inter_main_medium,
+                        remoteConfigNormal = val_inter_main_normal,
+                        adIdMedium = id_inter_main_medium,
+                        adIdNormal = id_inter_main_normal,
+                        tagClass = model?.maniTextTitle ?: return@let,
+                        isBackPress = true,
+                        layout = binding?.adsLay!!
+                    ) {
+                        findNavController().navigate(
+                            R.id.FragmentSoundSelection,
+                            bundleOf(ANTI_TITLE to model)
+                        )
+                    }
+                }
             }
 
             linearlayout.soundIcon.clickWithThrottle {
-                isBackShow=true
-                findNavController().navigate(
-                    R.id.FragmentSoundSelection,
-                    bundleOf(ANTI_TITLE to model)
-                )
+                adsManager?.let {
+                    showTwoInterAd(
+                        ads = it,
+                        activity = activity ?: return@let,
+                        remoteConfigMedium = val_inter_main_medium,
+                        remoteConfigNormal = val_inter_main_normal,
+                        adIdMedium = id_inter_main_medium,
+                        adIdNormal = id_inter_main_normal,
+                        tagClass = model?.maniTextTitle ?: return@let,
+                        isBackPress = true,
+                        layout = binding?.adsLay!!
+                    ) {
+                        findNavController().navigate(
+                            R.id.FragmentSoundSelection,
+                            bundleOf(ANTI_TITLE to model)
+                        )
+                    }
+                }
             }
 
             topLay.setLayoutBtn.clickWithThrottle {
@@ -99,7 +109,6 @@ class FragmentDetectionSameFunction :
         }
 
         setupBackPressedCallback {
-           isBackShow=model?.backRemote?:return@setupBackPressedCallback
             findNavController().navigateUp()
         }
 
@@ -278,7 +287,7 @@ class FragmentDetectionSameFunction :
     }
 
     private fun loadNativeGrid() {
-        adsManager?.nativeAds()?.loadNativeAd(
+        adsManager?.nativeAdsSplash()?.loadNativeAd(
             activity ?: return,
             model?.remoteValue ?: return,
             model?.idAds ?: return,
@@ -295,7 +304,7 @@ class FragmentDetectionSameFunction :
                         } else {
                             layoutInflater.inflate(R.layout.ad_unified_low, null) as NativeAdView
                         }
-                        adsManager?.nativeAds()?.nativeViewPolicy(currentNativeAd ?: return, adView)
+                        adsManager?.nativeAdsSplash()?.nativeViewPolicy(currentNativeAd ?: return, adView)
                         _binding?.gridLayout?.nativeExitAd?.removeAllViews()
                         _binding?.gridLayout?.nativeExitAd?.addView(adView)
                     }
@@ -320,7 +329,7 @@ class FragmentDetectionSameFunction :
     }
 
     private fun loadNativeList() {
-        adsManager?.nativeAds()?.loadNativeAd(
+        adsManager?.nativeAdsSplash()?.loadNativeAd(
             activity ?: return,
             model?.remoteValue ?: return,
             model?.idAds ?: return,
@@ -337,7 +346,7 @@ class FragmentDetectionSameFunction :
                         } else {
                             layoutInflater.inflate(R.layout.ad_unified_low, null) as NativeAdView
                         }
-                        adsManager?.nativeAds()?.nativeViewPolicy(currentNativeAd ?: return, adView)
+                        adsManager?.nativeAdsSplash()?.nativeViewPolicy(currentNativeAd ?: return, adView)
                         _binding?.linearlayout?.nativeExitAd?.removeAllViews()
                         _binding?.linearlayout?.nativeExitAd?.addView(adView)
                     }

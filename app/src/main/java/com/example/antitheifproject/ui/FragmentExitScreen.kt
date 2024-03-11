@@ -12,7 +12,6 @@ import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.interfaces.NativeListener
 import com.example.antitheifproject.utilities.BaseFragment
 import com.example.antitheifproject.utilities.id_exit_dialog_native
-import com.example.antitheifproject.utilities.isBackShow
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.val_ad_instertital_exit_dialog_is_B
 import com.example.antitheifproject.utilities.val_exit_dialog_native
@@ -32,10 +31,8 @@ class FragmentExitScreen :
         mCLickListener()
         loadNative()
         setupBackPressedCallback {
-            isBackShow= val_ad_instertital_exit_dialog_is_B
             findNavController().navigateUp()
         }
-
     }
 
     private fun loadNative() {
@@ -87,10 +84,8 @@ class FragmentExitScreen :
             activity?.finish()
         }
         _binding?.cancelBtn?.setOnClickListener {
-            isBackShow= val_ad_instertital_exit_dialog_is_B
             findNavController().navigateUp()
         }
-
         _binding?.rateImg?.setOnRatingBarChangeListener { ratingBar, fl, b ->
             if (fl > 3.5) {
                 startActivity(

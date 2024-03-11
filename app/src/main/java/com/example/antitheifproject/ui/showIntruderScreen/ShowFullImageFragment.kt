@@ -20,7 +20,6 @@ import com.example.antitheifproject.utilities.firebaseAnalytics
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.id_native_show_image_screen
-import com.example.antitheifproject.utilities.isBackShow
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.showToast
 import com.example.antitheifproject.utilities.val_ad_instertital_show_image_screen_is_B
@@ -49,22 +48,20 @@ class ShowFullImageFragment :
             models = it.getSerializable("obj") as IntruderModels
         }
 
-        if (isBackShow) {
-            adsManager?.let {
-                showTwoInterAd(
-                    ads = it,
-                    activity = activity ?: return@let,
-                    remoteConfigMedium = val_inter_main_medium,
-                    remoteConfigNormal = val_inter_main_normal,
-                    adIdMedium = id_inter_main_medium,
-                    adIdNormal = id_inter_main_normal,
-                    tagClass = "show_intruder_fragment_show",
-                    isBackPress = true,
-                    layout = binding?.adsLay!!
-                ) {
-                }
-            }
-        }
+//            adsManager?.let {
+//                showTwoInterAd(
+//                    ads = it,
+//                    activity = activity ?: return@let,
+//                    remoteConfigMedium = val_inter_main_medium,
+//                    remoteConfigNormal = val_inter_main_normal,
+//                    adIdMedium = id_inter_main_medium,
+//                    adIdNormal = id_inter_main_normal,
+//                    tagClass = "show_intruder_fragment_show",
+//                    isBackPress = true,
+//                    layout = binding?.adsLay!!
+//                ) {
+//                }
+//            }
         Glide.with(this).load(Uri.fromFile(models?.file)).into(binding?.intruderimage!!)
         binding?.deleteBtn?.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.delete_dialog, null)
@@ -90,11 +87,9 @@ class ShowFullImageFragment :
 
         binding?.shareBtn?.setOnClickListener { shareImage() }
         binding?.backicon?.setOnClickListener {
-            isBackShow = val_ad_instertital_show_image_screen_is_B
             findNavController().navigateUp()
         }
         setupBackPressedCallback {
-            isBackShow = val_ad_instertital_show_image_screen_is_B
             findNavController().navigateUp()
         }
         loadNative()

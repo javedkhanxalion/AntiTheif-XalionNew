@@ -2,10 +2,13 @@ package com.example.antitheifproject.ui
 
 import MainMenuGridAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +18,7 @@ import com.example.antitheifproject.adapter.MainMenuLinearAdapter
 import com.example.antitheifproject.ads_manager.AdsBanners.loadCollapsibleBanner
 import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.FunctionClass
-import com.example.antitheifproject.ads_manager.billing.BillingUtil
-import com.example.antitheifproject.ads_manager.loadTwoInterAds
+import com.example.antitheifproject.ads_manager.interfaces.NativeListener
 import com.example.antitheifproject.ads_manager.showTwoInterAd
 import com.example.antitheifproject.helper_class.Constants.isServiceRunning
 import com.example.antitheifproject.helper_class.DbHelper
@@ -36,9 +38,8 @@ import com.example.antitheifproject.utilities.getMenuListGrid
 import com.example.antitheifproject.utilities.id_banner_1
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
-import com.example.antitheifproject.utilities.isBackShow
+import com.example.antitheifproject.utilities.id_native_main_menu_screen
 import com.example.antitheifproject.utilities.isShowInApp
-import com.example.antitheifproject.utilities.loadImage
 import com.example.antitheifproject.utilities.moreApp
 import com.example.antitheifproject.utilities.privacyPolicy
 import com.example.antitheifproject.utilities.rateUs
@@ -46,13 +47,13 @@ import com.example.antitheifproject.utilities.requestCameraPermissionAudio
 import com.example.antitheifproject.utilities.setImage
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.shareApp
-import com.example.antitheifproject.utilities.showInAppDialog
 import com.example.antitheifproject.utilities.showRatingDialog
 import com.example.antitheifproject.utilities.showServiceDialog
 import com.example.antitheifproject.utilities.showToast
 import com.example.antitheifproject.utilities.val_banner_1
 import com.example.antitheifproject.utilities.val_inter_main_medium
 import com.example.antitheifproject.utilities.val_inter_main_normal
+
 
 class MainMenuFragment :
     BaseFragment<FragmentMainMenuActivityBinding>(FragmentMainMenuActivityBinding::inflate) {
@@ -69,7 +70,11 @@ class MainMenuFragment :
         firebaseAnalytics("main_menu_fragment_open", "main_menu_fragment_open -->  Click")
         sharedPrefUtils = DbHelper(context ?: return)
         setupBackPressedCallback {
-            findNavController().navigate(R.id.FragmentExitScreen)
+            if(_binding?.drawerLayout?.isDrawerOpen(GravityCompat.START) == true){
+                _binding?.drawerLayout?.closeDrawer(GravityCompat.START)
+            }else{
+                findNavController().navigate(R.id.FragmentExitScreen)
+            }
         }
         _binding?.run {
             mainLayout.topLay.setLayoutBtn.clickWithThrottle {
@@ -78,10 +83,6 @@ class MainMenuFragment :
             mainLayout.topLay.settingBtn.clickWithThrottle {
                 if (AdsManager.isNetworkAvailable(context)) {
                     firebaseAnalytics("purchase_dialog_continue_btn", "makingPurchase")
-//                    BillingUtil(requireActivity(), billingCallback = {
-//                        requireActivity().recreate()
-//                    }).purchase(true)
-
                     findNavController().navigate(R.id.FragmentInAppScreen)
                 } else {
                     FunctionClass.toast(requireActivity(), getString(R.string.no_internet))
@@ -116,6 +117,20 @@ class MainMenuFragment :
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             navView.languageView.clickWithThrottle {
+                adsManager?.let {
+                    showTwoInterAd(
+                        ads = it,
+                        activity = activity ?: return@clickWithThrottle,
+                        remoteConfigMedium = val_inter_main_medium,
+                        remoteConfigNormal = val_inter_main_normal,
+                        adIdMedium = id_inter_main_medium,
+                        adIdNormal = id_inter_main_normal,
+                        tagClass = "language_screen",
+                        isBackPress = false,
+                        layout = binding?.mainLayout?.adsLay!!
+                    ){
+                    }
+                }
                 firebaseAnalytics(
                     "main_menu_fragment_language_open",
                     "main_menu_fragment_language_open -->  Click"
@@ -149,31 +164,37 @@ class MainMenuFragment :
                 drawerLayout.openDrawer(GravityCompat.START)
             }
         }
-        if(isBackShow){
-            adsManager?.let {
-                showTwoInterAd(
-                    ads = it,
-                    activity = activity ?: return,
-                    remoteConfigMedium = val_inter_main_medium,
-                    remoteConfigNormal = val_inter_main_normal,
-                    adIdMedium = id_inter_main_medium,
-                    adIdNormal = id_inter_main_normal,
-                    tagClass = "main_meun",
-                    isBackPress = false,
-                    layout = binding?.mainLayout?.adsLay!!
-                ){
-                }
-            }
-        }
         loadCollapsibleBanner(
             activity?:return,
             binding?.mainLayout?.bannerAds!!,
             val_banner_1,
             id_banner_1
         )
-        if(isShowInApp) {
-            findNavController().navigate(R.id.FragmentInAppScreen)
+        checkNotificationPermission()
+        val drawerView: View = view.findViewById(R.id.drawerLayout)
+        if (drawerView is DrawerLayout) {
+            drawerView.setDrawerListener(object : DrawerListener {
+                override fun onDrawerSlide(view: View, v: Float) {
+                    Log.d("drawer_check", "onDrawerSlide: $v")
+                }
+                override fun onDrawerOpened(view: View) {
+                    _binding?.mainLayout?.hideAd?.visibility=View.VISIBLE
+                }
+                override fun onDrawerClosed(view: View) {
+                    _binding?.mainLayout?.hideAd?.visibility=View.INVISIBLE
+                }
+                override fun onDrawerStateChanged(i: Int) {
+                    Log.d("drawer_check", "onDrawerStateChanged: $i")
+                }
+            })
         }
+//        adsManager?.nativeAdsSplash()?.loadNativeAd(
+//            activity ?: return,
+//            true,
+//            id_native_main_menu_screen,
+//            object : NativeListener {
+//
+//            })
     }
 
     private fun loadLayoutDirection(isGrid: Boolean) {
@@ -226,22 +247,30 @@ class MainMenuFragment :
 
     private fun loadFunction(model: MainMenuModel, position: Int) {
         firebaseAnalytics(model.maniTextTitle, "${model.maniTextTitle}_open -->  Click")
-        isBackShow=true
+        adsManager?.let {
+            showTwoInterAd(
+                ads = it,
+                activity = activity ?: return,
+                remoteConfigMedium = val_inter_main_medium,
+                remoteConfigNormal = val_inter_main_normal,
+                adIdMedium = id_inter_main_medium,
+                adIdNormal = id_inter_main_normal,
+                tagClass = model.maniTextTitle,
+                isBackPress = false,
+                layout = binding?.mainLayout?.adsLay!!
+            ){
+            }
+        }
         when (position) {
             0 -> {
-//                loadAds(model, findNavController().navigate(R.id.FragmentInturderDetectionDetail))
                 findNavController().navigate(R.id.FragmentInturderDetectionDetail)
-
             }
-
             2 -> {
                findNavController().navigate(
                     R.id.FragmentPasswordDetail,
                     bundleOf(ANTI_TITLE to model)
                 )
-
             }
-
             else -> {
                 if (ContextCompat.checkSelfPermission(context ?: return, AUDIO_PERMISSION) == 0 &&
                     ContextCompat.checkSelfPermission(context ?: return, PHONE_PERMISSION) == 0
@@ -271,7 +300,9 @@ class MainMenuFragment :
         sharedPrefUtils?.getBooleanData(context ?: return, IS_NOTIFICATION, false)?.let {
             _binding?.navView?.customSwitch?.isChecked = it
         }
-        checkNotificationPermission()
+        if(isShowInApp) {
+            findNavController().navigate(R.id.FragmentInAppScreen)
+        }
     }
 
 }

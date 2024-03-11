@@ -30,7 +30,6 @@ import com.example.antitheifproject.utilities.clickWithThrottle
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.id_native_intruder_detection_screen
-import com.example.antitheifproject.utilities.isBackShow
 import com.example.antitheifproject.utilities.loadImage
 import com.example.antitheifproject.utilities.requestCameraPermission
 import com.example.antitheifproject.utilities.setImage
@@ -59,42 +58,22 @@ class FragmentInturderDetectionDetail :
         super.onViewCreated(view, savedInstanceState)
 
         adsManager = AdsManager.appAdsInit(activity ?: return)
-        if (isBackShow) {
-            adsManager?.let {
-                showTwoInterAd(
-                    ads = it,
-                    activity = activity ?: return@let,
-                    remoteConfigMedium = val_inter_main_medium,
-                    remoteConfigNormal = val_inter_main_normal,
-                    adIdMedium = id_inter_main_medium,
-                    adIdNormal = id_inter_main_normal,
-                    tagClass = "Intruder Alert",
-                    isBackPress = true,
-                    layout = binding?.adsLay!!
-                ) {
-                }
-            }
-        }
+
         dbHelper = DbHelper(context ?: return)
         _binding?.textView3?.text = getString(R.string.title_intruder)
         mDevicePolicyManager =
             context?.getSystemService(AppCompatActivity.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         mComponentName = ComponentName(context ?: return, Admin::class.java)
-
         _binding?.topLay?.navMenu?.loadImage(context ?: return, R.drawable.back_btn)
-
         _binding?.run {
             _binding?.topLay?.navMenu?.clickWithThrottle {
-               isBackShow=val_ad_instertital_intruder_detection_screen_is_B
                 findNavController().navigateUp()
             }
             topLay.setLayoutBtn.clickWithThrottle {
                 loadLayoutDirection(!(isGridLayout ?: return@clickWithThrottle))
             }
         }
-
         setupBackPressedCallback {
-               isBackShow=val_ad_instertital_intruder_detection_screen_is_B
             findNavController().navigateUp()
         }
     }
@@ -167,8 +146,21 @@ class FragmentInturderDetectionDetail :
                     }
                 }
                 gridLayout.intruderImagesView.clickWithThrottle {
-                    isBackShow=true
-                    findNavController().navigate(R.id.FragmentShowIntruder)
+                    adsManager?.let {
+                        showTwoInterAd(
+                            ads = it,
+                            activity = activity ?: return@let,
+                            remoteConfigMedium = val_inter_main_medium,
+                            remoteConfigNormal = val_inter_main_normal,
+                            adIdMedium = id_inter_main_medium,
+                            adIdNormal = id_inter_main_normal,
+                            tagClass = "Intruder Alert",
+                            isBackPress = true,
+                            layout = binding?.adsLay!!
+                        ) {
+                            findNavController().navigate(R.id.FragmentShowIntruder)
+                        }
+                    }
                 }
                 gridLayout.run {
                     at1.clickWithThrottle {
@@ -283,8 +275,21 @@ class FragmentInturderDetectionDetail :
                     }
                 }
                 linearlayout.intruderImagesView.clickWithThrottle {
-                    isBackShow=true
-                    findNavController().navigate(R.id.FragmentShowIntruder)
+                    adsManager?.let {
+                        showTwoInterAd(
+                            ads = it,
+                            activity = activity ?: return@let,
+                            remoteConfigMedium = val_inter_main_medium,
+                            remoteConfigNormal = val_inter_main_normal,
+                            adIdMedium = id_inter_main_medium,
+                            adIdNormal = id_inter_main_normal,
+                            tagClass = "Intruder Alert",
+                            isBackPress = true,
+                            layout = binding?.adsLay!!
+                        ) {
+                            findNavController().navigate(R.id.FragmentShowIntruder)
+                        }
+                    }
                 }
                 linearlayout.run {
                     at1.clickWithThrottle {
@@ -408,7 +413,7 @@ class FragmentInturderDetectionDetail :
     }
 
     private fun loadNativeGrid() {
-        adsManager?.nativeAds()?.loadNativeAd(
+        adsManager?.nativeAdsSplash()?.loadNativeAd(
             activity ?: return,
             val_ad_native_intruder_detection_screen,
             id_native_intruder_detection_screen,
@@ -422,7 +427,7 @@ class FragmentInturderDetectionDetail :
                         } else {
                             layoutInflater.inflate(R.layout.ad_unified_low, null) as NativeAdView
                         }
-                        adsManager?.nativeAds()
+                        adsManager?.nativeAdsSplash()
                             ?.nativeViewPolicy(currentNativeAd ?: return, adView)
                         _binding?.gridLayout?.nativeExitAd?.removeAllViews()
                         _binding?.gridLayout?.nativeExitAd?.addView(adView)
@@ -449,7 +454,7 @@ class FragmentInturderDetectionDetail :
     }
 
     private fun loadNativeList() {
-        adsManager?.nativeAds()?.loadNativeAd(
+        adsManager?.nativeAdsSplash()?.loadNativeAd(
             activity ?: return,
             val_ad_native_intruder_detection_screen,
             id_native_intruder_detection_screen,
@@ -463,7 +468,7 @@ class FragmentInturderDetectionDetail :
                         } else {
                             layoutInflater.inflate(R.layout.ad_unified_low, null) as NativeAdView
                         }
-                        adsManager?.nativeAds()
+                        adsManager?.nativeAdsSplash()
                             ?.nativeViewPolicy(currentNativeAd ?: return, adView)
                         _binding?.linearlayout?.nativeExitAd?.removeAllViews()
                         _binding?.linearlayout?.nativeExitAd?.addView(adView)

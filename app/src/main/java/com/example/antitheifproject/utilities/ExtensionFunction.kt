@@ -94,7 +94,7 @@ var yearly_price = ""
 
 var isSplash = true
 var isShowInApp = true
-var isBackShow = true
+//var isBackShow = true
 
 
 var val_inter_main_medium = true

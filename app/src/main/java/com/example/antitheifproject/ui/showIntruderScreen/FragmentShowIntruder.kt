@@ -18,7 +18,6 @@ import com.example.antitheifproject.utilities.firebaseAnalytics
 import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.id_native_intruder_list_screen
-import com.example.antitheifproject.utilities.isBackShow
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.val_ad_instertital_intruder_list_screen_is_B
 import com.example.antitheifproject.utilities.val_ad_native_intruder_list_screen
@@ -46,7 +45,26 @@ class FragmentShowIntruder :
 
         adsManager = AdsManager.appAdsInit(activity ?: return)
         loadNative()
-        if (isBackShow) {
+
+        setupViews()
+        setupRecyclerView()
+        setupBackPressedCallback {
+            findNavController().navigateUp() }
+        firebaseAnalytics(
+            "show_intruder_fragment_load",
+            "show_intruder_fragment_load_oncreate -->  Click"
+        )
+
+    }
+
+    private fun setupViews() {
+        dir = getAntiTheftDirectory()
+        _binding?.backicon?.setOnClickListener {
+            findNavController().navigateUp() }
+    }
+
+    private fun setupRecyclerView() {
+        adapter = IntruderAdapter(allIntruderList, requireActivity()) { intruderModel ,uri_->
             adsManager?.let {
                 showTwoInterAd(
                     ads = it,
@@ -59,36 +77,13 @@ class FragmentShowIntruder :
                     isBackPress = true,
                     layout = binding?.adsLay!!
                 ) {
+                    uriPic=uri_
+                    findNavController().navigate(
+                        R.id.ShowFullImageFragment,
+                        bundleOf("obj" to intruderModel)
+                    )
                 }
             }
-        }
-        setupViews()
-        setupRecyclerView()
-        setupBackPressedCallback {
-            isBackShow = val_ad_instertital_intruder_list_screen_is_B
-            findNavController().navigateUp() }
-        firebaseAnalytics(
-            "show_intruder_fragment_load",
-            "show_intruder_fragment_load_oncreate -->  Click"
-        )
-
-    }
-
-    private fun setupViews() {
-        dir = getAntiTheftDirectory()
-        _binding?.backicon?.setOnClickListener {
-            isBackShow = val_ad_instertital_intruder_list_screen_is_B
-            findNavController().navigateUp() }
-    }
-
-    private fun setupRecyclerView() {
-        adapter = IntruderAdapter(allIntruderList, requireActivity()) { intruderModel ,uri_->
-            isBackShow=true
-            uriPic=uri_
-            findNavController().navigate(
-                R.id.ShowFullImageFragment,
-                bundleOf("obj" to intruderModel)
-            )
         }
         _binding?.intruderList?.adapter = adapter
     }

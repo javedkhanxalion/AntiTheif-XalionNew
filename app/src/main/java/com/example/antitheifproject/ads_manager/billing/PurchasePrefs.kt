@@ -26,6 +26,24 @@ class PurchasePrefs(appContext: Context?) {
         return newList
     }
 
+    fun putListInt(key: String?, intList: List<Int>) {
+        val stringList = intList.joinToString(separator = "‚‗‚")
+        preferences.edit().putString(key, stringList).apply()
+    }
+
+    fun getListBoolean(key: String?): ArrayList<Boolean> {
+        val myList = TextUtils.split(preferences.getString(key, ""), "‚‗‚")
+        val arrayToList = ArrayList(Arrays.asList(*myList))
+        val newList = ArrayList<Boolean>()
+        for (item in arrayToList) newList.add(item.toBoolean())
+        return newList
+    }
+
+    fun putListBoolean(key: String?, booleanList: List<Boolean>) {
+        val stringList = booleanList.joinToString(separator = "‚‗‚") { it.toString() }
+        preferences.edit().putString(key, stringList).apply()
+    }
+
     fun getString(key: String?): String? {
         return preferences.getString(key, "")
     }

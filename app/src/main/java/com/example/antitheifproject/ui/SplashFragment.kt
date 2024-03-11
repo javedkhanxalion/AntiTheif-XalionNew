@@ -39,7 +39,6 @@ import com.example.antitheifproject.utilities.id_native_main_menu_screen
 import com.example.antitheifproject.utilities.id_native_password_screen
 import com.example.antitheifproject.utilities.id_native_sound_screen
 import com.example.antitheifproject.utilities.inter_frequency_count
-import com.example.antitheifproject.utilities.isBackShow
 import com.example.antitheifproject.utilities.isShowInApp
 import com.example.antitheifproject.utilities.isSplash
 import com.example.antitheifproject.utilities.setLocaleMain
@@ -123,8 +122,6 @@ class SplashFragment :
         adsManager = AdsManager.appAdsInit(activity ?: return)
         dbHelper = DbHelper(context ?: return)
         dbHelper?.getStringData(requireContext(), LANG_CODE, "en")?.let { setLocaleMain(it) }
-//        BillingUtil(requireActivity(), billingCallback = {
-//        }).setupConnection(false)
         loadTwoInterAdsSplash(
             adsManager ?: return,
             activity ?: return,
@@ -136,31 +133,6 @@ class SplashFragment :
         initRemoteIds()
         initRemoteConfig()
         isShowInApp=true
-//        googleMobileAdsConsentManager = GoogleMobileAdsConsentManager.getInstance(requireContext())
-//        googleMobileAdsConsentManager.gatherConsent(activity?:return) { consentError ->
-//            if (consentError != null) {
-//                // Consent not obtained in current session.
-//                Log.w("LOG_TAG", String.format("%s: %s", consentError.errorCode, consentError.message))
-//            }
-//
-//            if (googleMobileAdsConsentManager.canRequestAds) {
-//                initRemoteIds()
-//                initRemoteConfig()
-//                observeSplashLiveData()
-//            }else
-//            {
-//                initRemoteIds()
-//                initRemoteConfig()
-//                observeSplashLiveData()
-//            }
-//       /*     if (secondsRemaining <= 0) {
-//                if (spStore.isShowSlidingScreen) {
-//                    startActivity(Intent(applicationContext , AppLocalizationActivity::class.java))
-//                } else {
-//                    startActivity(Intent(applicationContext , WelcomeActivity::class.java))
-//                }
-//            }*/
-//        }
 
         setupBackPressedCallback {
             //Do Nothing
@@ -179,7 +151,6 @@ class SplashFragment :
                 try {
                     delay(1000)
                     findNavController().navigate(R.id.myLoadingFragment)
-                    isBackShow=false
                     firebaseAnalytics("splash_fragment_load", "splash_fragment_load -->  Click")
 
                 } catch (e: Exception) {

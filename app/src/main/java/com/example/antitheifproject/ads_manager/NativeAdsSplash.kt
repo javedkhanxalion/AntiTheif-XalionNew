@@ -127,6 +127,17 @@ object NativeAdsSplash {
                         currentNativeAd = null
                         isNativeLoading = false
                         Log.d(NativeAdsSplashLog, "onAdImpression native Ad")
+                        loadNativeAd(
+                            activity,
+                            true,
+                            nativeAdId,
+                            object : NativeListener {
+                                override fun nativeAdLoaded(currentNativeAd: NativeAd?) {
+                                    NativeAdsSplash.currentNativeAd = currentNativeAd
+                                    super.nativeAdLoaded(currentNativeAd)
+                                }
+
+                            })
                         super.onAdImpression()
                     }
 
@@ -209,6 +220,17 @@ object NativeAdsSplash {
                 currentNativeAd = null
                 isNativeLoading = false
                 Log.d(NativeAdsSplashLog, "onAdImpression native Ad")
+                loadNativeAd(
+                    activity,
+                    true,
+                    nativeAdId,
+                    object : NativeListener {
+                        override fun nativeAdLoaded(currentNativeAd: NativeAd?) {
+                            NativeAdsSplash.currentNativeAd = currentNativeAd
+                            super.nativeAdLoaded(currentNativeAd)
+                        }
+
+                    })
                 super.onAdImpression()
             }
 

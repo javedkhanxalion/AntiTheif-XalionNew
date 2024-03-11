@@ -8,13 +8,12 @@
     android:background="#00FFFFFF">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/splashBgColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.75">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!--    Premium Button -->
         <View
