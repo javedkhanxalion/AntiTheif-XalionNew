@@ -27,10 +27,28 @@
         android:background="@drawable/rect_btn_intro"
         android:textSize="@dimen/_14sdp"
         app:layout_constraintBottom_toBottomOf="@id/skipApp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/skipApp"
         app:layout_constraintTop_toTopOf="@+id/skipApp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/worm_dots_indicator"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/worm_dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_20sdp"
+        app:dotsColor="@color/black"
+        app:dotsCornerRadius="8dp"
+        app:dotsSize="@dimen/_5sdp"
+        app:dotsSpacing="2dp"
+        app:dotsStrokeWidth="@dimen/_3sdp"
+        app:dotsWidthFactor="2.5"
+        app:layout_constraintBottom_toBottomOf="@id/nextApp"
+        app:layout_constraintTop_toTopOf="@+id/nextApp"
+        app:layout_constraintEnd_toStartOf="@+id/skipApp"
+        app:layout_constraintStart_toEndOf="@id/nextApp"
+        app:progressMode="true"
+        app:selectedDotColor="#0029FF" />
 
     <TextView
         android:id="@+id/skipApp"
@@ -42,7 +60,7 @@
         android:background="@drawable/rect_btn_intro"
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
-        app:layout_constraintEnd_toStartOf="@id/nextApp"
+        app:layout_constraintEnd_toStartOf="@id/worm_dots_indicator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_slideViewPager"
         tools:ignore="RtlHardcoded,RtlSymmetry" />

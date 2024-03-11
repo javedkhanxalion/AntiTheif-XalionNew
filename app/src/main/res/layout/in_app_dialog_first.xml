@@ -6,17 +6,13 @@
     android:background="@drawable/in_app_bg">
 
 
-
-
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/closeTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
         android:layout_margin="@dimen/_30sdp"
-        android:background="@drawable/rect_menu_bg_dialog"
-        app:tint="@color/black"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/close_btn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -136,13 +132,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_9sdp"
-            android:text="@string/annual_free_trail_second"
             android:textColor="@color/nveTextColor"
             android:layout_marginEnd="@dimen/_50sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/yearlyCheck"
             app:layout_constraintStart_toStartOf="@id/yearlyTextT"
             app:layout_constraintTop_toBottomOf="@id/yearlyTextT" />
+
+        <TextView
+            android:id="@+id/yearlyTextBefore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/yearlyTextT"
+            app:layout_constraintTop_toTopOf="@+id/yearlyTextT"
+            android:paddingEnd="@dimen/_6sdp"
+            android:textSize="@dimen/_8sdp"
+            android:text="@string/today_s_total"
+            app:layout_constraintEnd_toStartOf="@id/yearlyText"
+            app:layout_constraintBottom_toBottomOf="@id/yearlyTextT"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="#FF005C"/>
 
         <TextView
             android:id="@+id/yearlyText"

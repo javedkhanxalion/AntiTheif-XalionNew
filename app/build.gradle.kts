@@ -20,8 +20,8 @@ android {
         applicationId = "com.antitheftalarm.dont.touch.phone.finder"
         minSdk = 24
         targetSdk = 34
-        versionCode = 12
-        versionName = "2.2"
+        versionCode = 13
+        versionName = "2.3"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         setProperty("archivesBaseName", "AntiThief_v$versionName($versionCode)")
     }
@@ -100,6 +100,7 @@ dependencies {
     implementation("com.google.firebase:firebase-config-ktx:21.6.0")
     implementation("com.google.firebase:firebase-analytics-ktx:21.5.0")
     implementation ("com.github.hypersoftdev:inappbilling:3.0.0-alpha-02")
+    implementation("com.tbuonomo:dotsindicator:5.0")
 }
 
 googleServices.disableVersionCheck = true

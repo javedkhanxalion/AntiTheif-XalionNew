@@ -36,6 +36,7 @@ class IntoScreenFragment :
     private var viewListener: OnPageChangeListener = object : OnPageChangeListener {
         override fun onPageScrolled(i: Int, v: Float, i1: Int) {
             currentpage = i
+            _binding?.wormDotsIndicator?.attachTo(_binding?.mainSlideViewPager?:return)
         }
 
         override fun onPageSelected(i: Int) {

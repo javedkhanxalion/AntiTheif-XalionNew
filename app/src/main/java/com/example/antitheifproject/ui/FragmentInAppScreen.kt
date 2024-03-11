@@ -84,13 +84,16 @@ class FragmentInAppScreen :
                 if (productDetail.productType == ProductType.subs) {
                     if (productDetail.productId == "gold_product" && productDetail.planId == "gold-plan-monthly") {
                         // productDetail (monthly)
-                        _binding?.monthlyText?.text = "${productDetail.price} / Monthly"
+                        _binding?.monthlyText?.text = "${productDetail.price}"
                         productDetail.freeTrialDays = 3
                     } else if (productDetail.productId == "subs_product_id_2" && productDetail.planId == "subs_plan_id_2") {
                         // productDetail (3 months)
                     } else if (productDetail.productId == "gold_product" && productDetail.planId == "gold-plan-yearly") {
                         // productDetail (yearly)
-                        _binding?.yearlyText?.text = "${productDetail.price} / Yearly"
+                        _binding?.yearlyText?.text = "${productDetail.currencyCode} 0.0"
+                        val originalString = getString(R.string.annual_free_trail_second)
+                        originalString.replace("12.0", productDetail.price)
+                        _binding?.yearlyTextTDetail?.text = originalString
                         productDetail.freeTrialDays = 3
                     }
                 }
