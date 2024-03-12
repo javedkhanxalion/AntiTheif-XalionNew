@@ -119,8 +119,6 @@ class LoadingScreenFragment :
             object : NativeListener {
                 override fun nativeAdLoaded(currentNativeAd: NativeAd?) {
                     if(isAdded && isVisible && !isDetached){
-                    _binding?.nativeExitAd?.visibility = View.VISIBLE
-                    _binding?.adView?.visibility = View.GONE
                     val adView = if(val_ad_native_loading_screen_is_H){
                         layoutInflater.inflate(R.layout.ad_unified_media_high, null) as NativeAdView
                     }else{
@@ -131,6 +129,8 @@ class LoadingScreenFragment :
                         _binding?.nativeExitAd?.addView(adView)
                         _binding?.next?.visibility = View.VISIBLE
                         _binding?.animationView?.visibility = View.INVISIBLE
+                        _binding?.nativeExitAd?.visibility = View.VISIBLE
+                        _binding?.shimmerLayout?.visibility = View.GONE
                     }
                     super.nativeAdLoaded(currentNativeAd)
                 }
@@ -138,7 +138,7 @@ class LoadingScreenFragment :
                 override fun nativeAdFailed(loadAdError: LoadAdError) {
                     if(isAdded && isVisible && !isDetached) {
                         _binding?.nativeExitAd?.visibility = View.INVISIBLE
-                        _binding?.adView?.visibility = View.INVISIBLE
+                        _binding?.shimmerLayout?.visibility = View.INVISIBLE
                         _binding?.next?.visibility = View.VISIBLE
                         _binding?.animationView?.visibility = View.INVISIBLE
                     }
@@ -148,7 +148,7 @@ class LoadingScreenFragment :
                 override fun nativeAdValidate(string: String) {
                     if(isAdded && isVisible && !isDetached) {
                         _binding?.nativeExitAd?.visibility = View.INVISIBLE
-                        _binding?.adView?.visibility = View.INVISIBLE
+                        _binding?.shimmerLayout?.visibility = View.INVISIBLE
                         _binding?.next?.visibility = View.VISIBLE
                         _binding?.animationView?.visibility = View.INVISIBLE
                     }

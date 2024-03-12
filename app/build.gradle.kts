@@ -101,6 +101,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:21.5.0")
     implementation ("com.github.hypersoftdev:inappbilling:3.0.0-alpha-02")
     implementation("com.tbuonomo:dotsindicator:5.0")
+    //shimmer
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
 }
 
 googleServices.disableVersionCheck = true

@@ -101,7 +101,10 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.get
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.Locale
@@ -130,8 +133,10 @@ class SplashFragment :
             "splash"
         )
         inter_frequency_count = 0
-        initRemoteIds()
-        initRemoteConfig()
+        CoroutineScope(Dispatchers.Main).launch {
+            initRemoteIds()
+            initRemoteConfig()
+        }
         isShowInApp=true
 
         setupBackPressedCallback {

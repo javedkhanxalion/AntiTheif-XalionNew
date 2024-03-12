@@ -11,9 +11,9 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 12,
-      "versionName": "2.2",
-      "outputFile": "AntiThief_v2.2(12)-debug.apk"
+      "versionCode": 13,
+      "versionName": "2.3",
+      "outputFile": "AntiThief_v2.3(13)-debug.apk"
     }
   ],
   "elementType": "File"

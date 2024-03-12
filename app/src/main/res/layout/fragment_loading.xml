@@ -44,6 +44,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintWidth_percent="0.80" />
 
+
+
     <FrameLayout
         android:id="@+id/nativeExitAd"
         android:layout_width="match_parent"
@@ -56,18 +58,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:letterSpacing="0.2"
-        android:text="@string/ad"
-        android:textColor="@color/textColor"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/nativeExitAd"
-        app:layout_constraintEnd_toEndOf="@+id/nativeExitAd"
-        app:layout_constraintStart_toStartOf="@+id/nativeExitAd"
-        app:layout_constraintTop_toTopOf="@+id/nativeExitAd" />
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/round_btn_ads"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/nativeExitAd"
+        app:layout_constraintLeft_toLeftOf="@id/nativeExitAd"
+        app:layout_constraintRight_toRightOf="@id/nativeExitAd"
+        app:layout_constraintTop_toTopOf="@id/nativeExitAd"
+        app:shimmer_auto_start="true">
+
+        <include
+            android:id="@+id/shimmer_main"
+            layout="@layout/shimmer_native_layout" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <TextView
         android:id="@+id/next"

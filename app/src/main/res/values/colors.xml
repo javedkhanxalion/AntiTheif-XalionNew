@@ -19,5 +19,6 @@
     <color name="transparent">#00000000</color>
     <color name="button_color_1">#FFEC1C24</color>
     <color name="button_color_2">#FFFF005C</color>
+    <color name="grey600">#757575</color>
 
 </resources>
