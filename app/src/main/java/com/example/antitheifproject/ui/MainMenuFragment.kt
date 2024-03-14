@@ -70,9 +70,9 @@ class MainMenuFragment :
         firebaseAnalytics("main_menu_fragment_open", "main_menu_fragment_open -->  Click")
         sharedPrefUtils = DbHelper(context ?: return)
         setupBackPressedCallback {
-            if(_binding?.drawerLayout?.isDrawerOpen(GravityCompat.START) == true){
+            if (_binding?.drawerLayout?.isDrawerOpen(GravityCompat.START) == true) {
                 _binding?.drawerLayout?.closeDrawer(GravityCompat.START)
-            }else{
+            } else {
                 findNavController().navigate(R.id.FragmentExitScreen)
             }
         }
@@ -83,7 +83,10 @@ class MainMenuFragment :
             mainLayout.topLay.settingBtn.clickWithThrottle {
                 if (AdsManager.isNetworkAvailable(context)) {
                     firebaseAnalytics("purchase_dialog_continue_btn", "makingPurchase")
-                    findNavController().navigate(R.id.FragmentInAppScreen,bundleOf("Is_From_Splash" to true))
+                    findNavController().navigate(
+                        R.id.FragmentInAppScreen,
+                        bundleOf("Is_From_Splash" to true)
+                    )
                 } else {
                     FunctionClass.toast(requireActivity(), getString(R.string.no_internet))
                 }
@@ -109,7 +112,10 @@ class MainMenuFragment :
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             navView.viewTop.clickWithThrottle {
-                findNavController().navigate(R.id.FragmentInAppScreen,bundleOf("Is_From_Splash" to false))
+                findNavController().navigate(
+                    R.id.FragmentInAppScreen,
+                    bundleOf("Is_From_Splash" to false)
+                )
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
             navView.moreAppView.clickWithThrottle {
@@ -128,7 +134,7 @@ class MainMenuFragment :
                         tagClass = "language_screen",
                         isBackPress = false,
                         layout = binding?.mainLayout?.adsLay!!
-                    ){
+                    ) {
                     }
                 }
                 firebaseAnalytics(
@@ -165,7 +171,7 @@ class MainMenuFragment :
             }
         }
         loadCollapsibleBanner(
-            activity?:return,
+            activity ?: return,
             binding?.mainLayout?.bannerAds!!,
             val_banner_1,
             id_banner_1
@@ -177,12 +183,15 @@ class MainMenuFragment :
                 override fun onDrawerSlide(view: View, v: Float) {
                     Log.d("drawer_check", "onDrawerSlide: $v")
                 }
+
                 override fun onDrawerOpened(view: View) {
-                    _binding?.mainLayout?.hideAd?.visibility=View.VISIBLE
+                    _binding?.mainLayout?.hideAd?.visibility = View.VISIBLE
                 }
+
                 override fun onDrawerClosed(view: View) {
-                    _binding?.mainLayout?.hideAd?.visibility=View.INVISIBLE
+                    _binding?.mainLayout?.hideAd?.visibility = View.INVISIBLE
                 }
+
                 override fun onDrawerStateChanged(i: Int) {
                     Log.d("drawer_check", "onDrawerStateChanged: $i")
                 }
@@ -193,7 +202,6 @@ class MainMenuFragment :
 //            true,
 //            id_native_main_menu_screen,
 //            object : NativeListener {
-//
 //            })
     }
 
@@ -204,7 +212,8 @@ class MainMenuFragment :
             _binding?.mainLayout?.topLay?.setLayoutBtn?.setImage(
                 R.drawable.icon_grid
             )
-            adapterGrid =MainMenuGridAdapter(activity ?: return, getMenuListGrid(sharedPrefUtils ?: return))
+            adapterGrid =
+                MainMenuGridAdapter(activity ?: return, getMenuListGrid(sharedPrefUtils ?: return))
             val managerLayout = GridLayoutManager(context, 3)
             val spanSizeLookup1 = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
@@ -258,27 +267,29 @@ class MainMenuFragment :
                 tagClass = model.maniTextTitle,
                 isBackPress = false,
                 layout = binding?.mainLayout?.adsLay!!
-            ){
+            ) {
             }
         }
         when (position) {
             0 -> {
                 findNavController().navigate(R.id.FragmentInturderDetectionDetail)
             }
+
             2 -> {
-               findNavController().navigate(
+                findNavController().navigate(
                     R.id.FragmentPasswordDetail,
                     bundleOf(ANTI_TITLE to model)
                 )
             }
+
             else -> {
                 if (ContextCompat.checkSelfPermission(context ?: return, AUDIO_PERMISSION) == 0 &&
                     ContextCompat.checkSelfPermission(context ?: return, PHONE_PERMISSION) == 0
                 ) {
-                        findNavController().navigate(
-                            R.id.FragmentDetectionSameFunction,
-                            bundleOf(ANTI_TITLE to model)
-                        )
+                    findNavController().navigate(
+                        R.id.FragmentDetectionSameFunction,
+                        bundleOf(ANTI_TITLE to model)
+                    )
                 } else {
                     requestCameraPermissionAudio()
                 }

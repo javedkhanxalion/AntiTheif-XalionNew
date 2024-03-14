@@ -522,7 +522,7 @@ class SystemEventsService : Service(), SensorEventListener {
     }
 
     private val cameraReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
+        override fun onReceive(context: Context, intent: Intent?) {
             // Get extra data included in the Intent
             Log.d("passwod", "onPasswordFailed:  system event service")
 //            stopRun()

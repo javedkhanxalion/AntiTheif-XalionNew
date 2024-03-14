@@ -64,9 +64,9 @@ class LoadingScreenFragment :
                     adIdNormal = getString(R.string.id_fullscreen_splash),
                     tagClass = "splash"
                 ) {
-                    getIntentMove()
                 }
             }
+            getIntentMove()
         }
         loadNative()
         setupBackPressedCallback {
