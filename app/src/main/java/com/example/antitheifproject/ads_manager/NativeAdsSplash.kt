@@ -229,7 +229,6 @@ object NativeAdsSplash {
                             NativeAdsSplash.currentNativeAd = currentNativeAd
                             super.nativeAdLoaded(currentNativeAd)
                         }
-
                     })
                 super.onAdImpression()
             }

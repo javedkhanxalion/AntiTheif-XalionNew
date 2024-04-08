@@ -231,7 +231,6 @@ class SplashFragment :
         id_native_clap_detection_screen = remoteConfig.getString("id_native_clap_detection_screen")
         id_native_Remove_Charger_screen = remoteConfig.getString("id_native_Remove_Charger_screen")
         id_native_Battery_Detection_screen = remoteConfig.getString("id_native_Battery_Detection_screen")
-        id_native_main_menu_screen = remoteConfig.getString("id_native_main_menu_screen")
         id_native_app_open_screen = remoteConfig.getString("id_native_app_open_screen")
         id_exit_dialog_native = remoteConfig.getString("id_exit_dialog_native")
         id_banner_1 = remoteConfig.getString("id_banner_1")

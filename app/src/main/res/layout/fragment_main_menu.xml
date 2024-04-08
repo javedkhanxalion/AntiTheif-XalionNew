@@ -75,6 +75,7 @@
         android:layout_margin="@dimen/_2sdp"
         android:minHeight="@dimen/_60sdp"
         android:visibility="visible"
+        android:descendantFocusability="blocksDescendants"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
