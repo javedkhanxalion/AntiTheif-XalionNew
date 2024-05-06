@@ -99,6 +99,7 @@ var isShowInApp = true
 //var isBackShow = true
 
 
+var val_inter_main_medium_Inapp_first = true
 var val_inter_main_medium = true
 var val_inter_main_normal = true
 

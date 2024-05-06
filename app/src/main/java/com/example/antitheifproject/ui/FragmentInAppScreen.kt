@@ -19,6 +19,7 @@ import com.example.antitheifproject.utilities.isShowInApp
 import com.example.antitheifproject.utilities.monthly_price
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.val_inter_main_medium
+import com.example.antitheifproject.utilities.val_inter_main_medium_Inapp_first
 import com.example.antitheifproject.utilities.val_inter_main_normal
 import com.example.antitheifproject.utilities.yearly_price
 import com.hypersoft.billing.BillingManager
@@ -159,8 +160,8 @@ class FragmentInAppScreen :
                 showTwoInterAdActivie(
                     ads = it,
                     activity = activity ?: return@let ,
-                    remoteConfigMedium = val_inter_main_medium,
-                    remoteConfigNormal = val_inter_main_normal,
+                    remoteConfigMedium = val_inter_main_medium_Inapp_first,
+                    remoteConfigNormal = val_inter_main_medium_Inapp_first,
                     adIdMedium = id_inter_main_medium,
                     adIdNormal = id_inter_main_normal,
                     tagClass = "exit",

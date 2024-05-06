@@ -48,15 +48,22 @@ class LoadingScreenFragment :
         sharedPrefUtils = DbHelper(context ?: return)
         adsManager = AdsManager.appAdsInit(activity ?: return)
         firebaseAnalytics("loading_fragment_open", "loading_fragment_open -->  Click")
-        lifecycleScope.launchWhenCreated {
-            delay(3000)
-            if(isFlowOne){
-                loadNative()
-                if(isAdded && isVisible && !isDetached) {
-                    _binding?.next?.visibility = View.VISIBLE
-                    _binding?.animationView?.visibility = View.INVISIBLE
-                }
-            }else{
+        if(isFlowOne){
+            lifecycleScope.launchWhenCreated {
+                delay(3000)
+                    loadNative()
+                    if(isAdded && isVisible && !isDetached) {
+                        _binding?.next?.visibility = View.VISIBLE
+                        _binding?.animationView?.visibility = View.INVISIBLE
+                    }
+            }
+        }else{
+            _binding?.next?.visibility = View.INVISIBLE
+            _binding?.nativeExitAd?.visibility = View.INVISIBLE
+            _binding?.shimmerLayout?.visibility = View.INVISIBLE
+            _binding?.animationView?.visibility = View.VISIBLE
+            lifecycleScope.launchWhenCreated {
+                delay(3000)
                 adsManager?.let {
                     showNormalInterAdSingle(
                         it,
@@ -73,6 +80,7 @@ class LoadingScreenFragment :
             }
 
         }
+
         _binding?.next?.setOnClickListener {
             adsManager?.let {
                 showNormalInterAdSingle(

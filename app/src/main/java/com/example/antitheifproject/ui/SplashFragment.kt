@@ -95,6 +95,7 @@ import com.example.antitheifproject.utilities.val_banner_1
 import com.example.antitheifproject.utilities.val_exit_dialog_native
 import com.example.antitheifproject.utilities.val_exit_dialog_native_is_H
 import com.example.antitheifproject.utilities.val_inter_main_medium
+import com.example.antitheifproject.utilities.val_inter_main_medium_Inapp_first
 import com.example.antitheifproject.utilities.val_inter_main_normal
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
@@ -298,6 +299,7 @@ class SplashFragment :
 
                 val_inter_main_medium = remoteConfig!!["val_inter_main_medium"].asBoolean()
                 val_inter_main_normal = remoteConfig!!["val_inter_main_normal"].asBoolean()
+                val_inter_main_medium_Inapp_first = remoteConfig!!["val_inter_main_medium_Inapp_first"].asBoolean()
 
                 val_ad_native_main_menu_screen =remoteConfig!!["val_ad_native_main_menu_screen"].asBoolean()
                 val_ad_native_loading_screen =remoteConfig!!["val_native_loading_screen"].asBoolean()
@@ -366,13 +368,13 @@ class SplashFragment :
                 val_exit_dialog_native_is_H =
                     remoteConfig!!["val_exit_dialog_native_is_H"].asBoolean()
                 isIntroLanguageShow = remoteConfig!!["isIntroLanguageShow"].asBoolean()
-                isFlowOne = remoteConfig!!["isIntroLanguageShow"].asBoolean()
+                isFlowOne = remoteConfig!!["isFlowOne"].asBoolean()
 
                 Log.d(
                     "RemoteConfig",
                     "Fetch val_inter_main_medium -> $val_inter_main_medium"
                 )
-                Log.d(
+                /*Log.d(
                     "RemoteConfig",
                     "Fetch val_inter_main_medium -> $val_banner_1"
                 )
@@ -444,7 +446,7 @@ class SplashFragment :
                     "RemoteConfig",
                     "Fetch val_exit_dialog_native -> $val_exit_dialog_native"
                 )
-
+*/
                 adsManager?.nativeAdsSplash()?.loadNativeAd(
                     activity ?: return@addOnCompleteListener,
                     true,

@@ -241,4 +241,14 @@
         <value>false</value>
     </entry>
 
+    <entry>
+        <key>isFlowOne</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>val_inter_main_medium_Inapp_first</key>
+        <value>true</value>
+    </entry>
+
 </defaultsMap>
