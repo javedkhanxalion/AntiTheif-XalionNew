@@ -20,6 +20,7 @@ import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.FunctionClass
 import com.example.antitheifproject.ads_manager.interfaces.NativeListener
 import com.example.antitheifproject.ads_manager.showTwoInterAd
+import com.example.antitheifproject.ads_manager.showTwoInterAdActivie
 import com.example.antitheifproject.helper_class.Constants.isServiceRunning
 import com.example.antitheifproject.helper_class.DbHelper
 import com.example.antitheifproject.model.MainMenuModel
@@ -73,6 +74,20 @@ class MainMenuFragment :
             if (_binding?.drawerLayout?.isDrawerOpen(GravityCompat.START) == true) {
                 _binding?.drawerLayout?.closeDrawer(GravityCompat.START)
             } else {
+                adsManager?.let {
+                    showTwoInterAdActivie(
+                        ads = it,
+                        activity = activity ?: return@let ,
+                        remoteConfigMedium = val_inter_main_medium,
+                        remoteConfigNormal = val_inter_main_normal,
+                        adIdMedium = id_inter_main_medium,
+                        adIdNormal = id_inter_main_normal,
+                        tagClass = "exit",
+                        isBackPress = false,
+                        layout = binding?.mainLayout?.adsLay!!
+                    ) {
+                    }
+                }
                 findNavController().navigate(R.id.FragmentExitScreen)
             }
         }
@@ -197,12 +212,6 @@ class MainMenuFragment :
                 }
             })
         }
-//        adsManager?.nativeAdsSplash()?.loadNativeAd(
-//            activity ?: return,
-//            true,
-//            id_native_main_menu_screen,
-//            object : NativeListener {
-//            })
     }
 
     private fun loadLayoutDirection(isGrid: Boolean) {

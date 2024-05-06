@@ -8,12 +8,18 @@ import androidx.navigation.fragment.findNavController
 import com.antitheftalarm.dont.touch.phone.finder.BuildConfig
 import com.antitheftalarm.dont.touch.phone.finder.R
 import com.antitheftalarm.dont.touch.phone.finder.databinding.InAppDialogFirstBinding
+import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.billing.PurchasePrefs
+import com.example.antitheifproject.ads_manager.showTwoInterAdActivie
 import com.example.antitheifproject.utilities.BaseFragment
 import com.example.antitheifproject.utilities.clickWithThrottle
+import com.example.antitheifproject.utilities.id_inter_main_medium
+import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.isShowInApp
 import com.example.antitheifproject.utilities.monthly_price
 import com.example.antitheifproject.utilities.setupBackPressedCallback
+import com.example.antitheifproject.utilities.val_inter_main_medium
+import com.example.antitheifproject.utilities.val_inter_main_normal
 import com.example.antitheifproject.utilities.yearly_price
 import com.hypersoft.billing.BillingManager
 import com.hypersoft.billing.dataClasses.ProductType
@@ -27,6 +33,7 @@ class FragmentInAppScreen :
     var billingManager: BillingManager? = null
     var planId: String? = null
     var isSplashFrom: Boolean? = true
+    var adsManager: AdsManager? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +41,7 @@ class FragmentInAppScreen :
         arguments?.let {
             isSplashFrom = it.getBoolean("Is_From_Splash")
         }
+        adsManager=AdsManager.appAdsInit(activity?:return)
         isShowInApp = false
         updateUI(
             binding?.yearlyCheck!!,
@@ -102,12 +110,7 @@ class FragmentInAppScreen :
         }
 
         setupBackPressedCallback {
-
-            if(isSplashFrom == true){
-                findNavController().navigate(R.id.myMainMenuFragment)
-            }else{
-                findNavController().navigateUp()
-            }
+            moveClose()
         }
         _binding?.premiumButton?.clickWithThrottle {
             billingManager?.makeSubPurchase(
@@ -124,18 +127,10 @@ class FragmentInAppScreen :
                 })
         }
         _binding?.closeIcon?.clickWithThrottle {
-            if(isSplashFrom == true){
-                findNavController().navigate(R.id.myMainMenuFragment)
-            }else{
-                findNavController().navigateUp()
-            }
+            moveClose()
         }
         _binding?.closeTop?.clickWithThrottle {
-            if(isSplashFrom == true){
-                findNavController().navigate(R.id.myMainMenuFragment)
-            }else{
-                findNavController().navigateUp()
-            }
+            moveClose()
         }
         _binding?.monthlyButton?.clickWithThrottle {
             planId="gold-plan-monthly"
@@ -158,6 +153,27 @@ class FragmentInAppScreen :
 
     }
 
+    fun moveClose(){
+        if(isSplashFrom == true){
+            adsManager?.let {
+                showTwoInterAdActivie(
+                    ads = it,
+                    activity = activity ?: return@let ,
+                    remoteConfigMedium = val_inter_main_medium,
+                    remoteConfigNormal = val_inter_main_normal,
+                    adIdMedium = id_inter_main_medium,
+                    adIdNormal = id_inter_main_normal,
+                    tagClass = "exit",
+                    isBackPress = false,
+                    layout = binding?.adsLay!!
+                ) {
+                }
+            }
+            findNavController().navigate(R.id.myMainMenuFragment)
+        }else{
+            findNavController().navigateUp()
+        }
+    }
     fun updateUI(image: View, layout: View, image1: View, layout1: View) {
         image.setBackgroundResource(R.drawable.in_app_ss)
         layout.setBackgroundResource(R.drawable.premium_button_selected)

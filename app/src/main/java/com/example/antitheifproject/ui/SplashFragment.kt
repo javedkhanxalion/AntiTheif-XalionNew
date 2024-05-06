@@ -39,6 +39,7 @@ import com.example.antitheifproject.utilities.id_native_main_menu_screen
 import com.example.antitheifproject.utilities.id_native_password_screen
 import com.example.antitheifproject.utilities.id_native_sound_screen
 import com.example.antitheifproject.utilities.inter_frequency_count
+import com.example.antitheifproject.utilities.isFlowOne
 import com.example.antitheifproject.utilities.isIntroLanguageShow
 import com.example.antitheifproject.utilities.isShowInApp
 import com.example.antitheifproject.utilities.isSplash
@@ -365,6 +366,7 @@ class SplashFragment :
                 val_exit_dialog_native_is_H =
                     remoteConfig!!["val_exit_dialog_native_is_H"].asBoolean()
                 isIntroLanguageShow = remoteConfig!!["isIntroLanguageShow"].asBoolean()
+                isFlowOne = remoteConfig!!["isIntroLanguageShow"].asBoolean()
 
                 Log.d(
                     "RemoteConfig",

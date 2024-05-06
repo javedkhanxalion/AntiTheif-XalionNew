@@ -22,6 +22,7 @@ import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.id_native_loading_screen
 import com.example.antitheifproject.utilities.id_native_main_menu_screen
+import com.example.antitheifproject.utilities.isFlowOne
 import com.example.antitheifproject.utilities.isIntroLanguageShow
 import com.example.antitheifproject.utilities.isSplash
 import com.example.antitheifproject.utilities.setupBackPressedCallback
@@ -49,10 +50,28 @@ class LoadingScreenFragment :
         firebaseAnalytics("loading_fragment_open", "loading_fragment_open -->  Click")
         lifecycleScope.launchWhenCreated {
             delay(3000)
-            if(isAdded && isVisible && !isDetached) {
-                _binding?.next?.visibility = View.VISIBLE
-                _binding?.animationView?.visibility = View.INVISIBLE
+            if(isFlowOne){
+                loadNative()
+                if(isAdded && isVisible && !isDetached) {
+                    _binding?.next?.visibility = View.VISIBLE
+                    _binding?.animationView?.visibility = View.INVISIBLE
+                }
+            }else{
+                adsManager?.let {
+                    showNormalInterAdSingle(
+                        it,
+                        activity ?: return@let,
+                        remoteConfigMedium = true,
+                        remoteConfigNormal = true,
+                        adIdMedium = getString(R.string.id_fullscreen_splash),
+                        adIdNormal = getString(R.string.id_fullscreen_splash),
+                        tagClass = "splash"
+                    ) {
+                    }
+                }
+                getIntentMove()
             }
+
         }
         _binding?.next?.setOnClickListener {
             adsManager?.let {
@@ -69,7 +88,7 @@ class LoadingScreenFragment :
             }
             getIntentMove()
         }
-        loadNative()
+
         setupBackPressedCallback {
         }
 

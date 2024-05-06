@@ -92,6 +92,7 @@ var counter = 0
 var monthly_price = ""
 var yearly_price = ""
 var isIntroLanguageShow = true
+var isFlowOne = true
 
 var isSplash = true
 var isShowInApp = true
