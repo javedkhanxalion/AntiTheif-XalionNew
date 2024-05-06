@@ -22,6 +22,7 @@ import com.example.antitheifproject.utilities.id_inter_main_medium
 import com.example.antitheifproject.utilities.id_inter_main_normal
 import com.example.antitheifproject.utilities.id_native_loading_screen
 import com.example.antitheifproject.utilities.id_native_main_menu_screen
+import com.example.antitheifproject.utilities.isIntroLanguageShow
 import com.example.antitheifproject.utilities.isSplash
 import com.example.antitheifproject.utilities.setupBackPressedCallback
 import com.example.antitheifproject.utilities.val_ad_native_loading_screen
@@ -79,7 +80,7 @@ class LoadingScreenFragment :
                 requireContext() ,
                 IS_INTRO,
                 false
-            ) == false
+            ) == false && isIntroLanguageShow
         ) {
             firebaseAnalytics(
                 "loading_fragment_load_next_btn_intro",
@@ -90,7 +91,7 @@ class LoadingScreenFragment :
                 requireContext(),
                 IS_FIRST,
                 false
-            ) == false
+            ) == false && isIntroLanguageShow
         ) {
             firebaseAnalytics(
                 "loading_fragment_load_next_btn_language",

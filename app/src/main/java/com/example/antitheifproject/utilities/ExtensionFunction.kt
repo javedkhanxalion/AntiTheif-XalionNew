@@ -91,6 +91,7 @@ import java.util.Locale
 var counter = 0
 var monthly_price = ""
 var yearly_price = ""
+var isIntroLanguageShow = true
 
 var isSplash = true
 var isShowInApp = true
