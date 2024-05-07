@@ -111,8 +111,8 @@ class FragmentInAppScreen :
         }
 
         setupBackPressedCallback {
-            moveClose()
         }
+
         _binding?.premiumButton?.clickWithThrottle {
             billingManager?.makeSubPurchase(
                 activity,
