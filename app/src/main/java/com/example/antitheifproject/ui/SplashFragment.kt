@@ -11,6 +11,7 @@ import com.antitheftalarm.dont.touch.phone.finder.databinding.FragmentSplashBind
 import com.example.antitheifproject.ads_manager.AdsManager
 import com.example.antitheifproject.ads_manager.billing.BillingUtil
 import com.example.antitheifproject.ads_manager.interfaces.NativeListener
+import com.example.antitheifproject.ads_manager.loadTwoInterAds
 import com.example.antitheifproject.ads_manager.loadTwoInterAdsSplash
 import com.example.antitheifproject.helper_class.DbHelper
 import com.example.antitheifproject.utilities.BaseFragment
@@ -155,6 +156,17 @@ class SplashFragment :
 
     private fun observeSplashLiveData() {
         try {
+            adsManager?.let {
+                loadTwoInterAds(
+                    ads = it,
+                    activity = activity ?: return@let,
+                    remoteConfigMedium = true,
+                    remoteConfigNormal = true,
+                    adIdMedium = id_inter_main_medium,
+                    adIdNormal = id_inter_main_normal,
+                    tagClass = "home_pre_cache"
+                )
+            }
             lifecycleScope.launchWhenStarted {
                 try {
                     delay(1000)

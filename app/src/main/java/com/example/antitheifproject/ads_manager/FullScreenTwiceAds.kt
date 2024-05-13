@@ -15,7 +15,7 @@ import com.example.antitheifproject.utilities.inter_frequency_count
 import com.example.antitheifproject.ads_manager.FullScreenAdsTwo.mInterstitialAd
 
 
-const val TAG = "TwoInterAds"
+const val TAG = "TwoInterAdsMAin"
 fun loadTwoInterAds(
     ads: AdsManager,
     activity: Activity,
@@ -31,9 +31,9 @@ fun loadTwoInterAds(
     if (!AdsManager.isNetworkAvailable(activity)) {
         return
     }
-    if (inter_frequency_count >= id_frequency_counter) {
-        return
-    }
+//    if (inter_frequency_count >= id_frequency_counter) {
+//        return
+//    }
     ads.fullScreenAds().loadFullScreenAd(activity = activity,
         addConfig = remoteConfigMedium,
         fullScreenAdId = adIdMedium,
@@ -116,6 +116,7 @@ fun showTwoInterAd(
     Log.d(TAG, "showTwoInterAd->id_frequency_counter: $id_frequency_counter")
     Log.d(TAG, "showTwoInterAd->remoteConfigMedium: $remoteConfigMedium")
     Log.d(TAG, "showTwoInterAd->remoteConfigNormal: $remoteConfigNormal")
+    Log.d(TAG, "showTwoInterAd->adscheck: $mInterstitialAd")
     if (mInterstitialAd == null || (!remoteConfigMedium && !remoteConfigNormal)) {
         function.invoke()
         return
@@ -129,7 +130,7 @@ fun showTwoInterAd(
         return
     }
 
-    if (id_inter_counter != counter) {
+    if (id_inter_counter > counter) {
         counter++
         Log.d(TAG, "showTwoInterAd->adIdNormalSkip: $counter")
         function.invoke()

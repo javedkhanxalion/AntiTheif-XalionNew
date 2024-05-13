@@ -195,8 +195,8 @@ class LoadingScreenFragment :
             loadTwoInterAds(
                 ads = it,
                 activity = activity ?: return@let,
-                remoteConfigMedium = val_inter_main_medium,
-                remoteConfigNormal = val_inter_main_normal,
+                remoteConfigMedium = true,
+                remoteConfigNormal = true,
                 adIdMedium = id_inter_main_medium,
                 adIdNormal = id_inter_main_normal,
                 tagClass = "home_pre_cache"
