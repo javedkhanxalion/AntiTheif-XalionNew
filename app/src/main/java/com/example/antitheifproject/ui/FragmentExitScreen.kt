@@ -64,14 +64,14 @@ class FragmentExitScreen :
                 }
 
                 override fun nativeAdFailed(loadAdError: LoadAdError) {
-                    binding?.nativeExitAd?.visibility = View.GONE
-                    binding?.adView?.visibility = View.GONE
+                    binding?.nativeExitAd?.visibility = View.INVISIBLE
+                    binding?.adView?.visibility = View.INVISIBLE
                     super.nativeAdFailed(loadAdError)
                 }
 
                 override fun nativeAdValidate(string: String) {
-                    binding?.nativeExitAd?.visibility = View.GONE
-                    binding?.adView?.visibility = View.GONE
+                    binding?.nativeExitAd?.visibility = View.INVISIBLE
+                    binding?.adView?.visibility = View.INVISIBLE
                     super.nativeAdValidate(string)
                 }
             })
